@@ -1,0 +1,71 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 29,
+  "defaultCheckedState": "{{ jsEvtWorkspace.current().closed === true }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "defaultCheckedState"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "defaultCheckedState"
+    },
+    {
+      "key": "onCheckChange"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onCheckChange"
+    }
+  ],
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{\njsEvtWorkspace.canShowClosed()\n}}",
+  "key": "u9rui2qgut",
+  "label": "Closed",
+  "labelPosition": "Left",
+  "labelStyle": "",
+  "labelTextSize": "0.875rem",
+  "leftColumn": 46,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 29,
+  "mobileLeftColumn": 35,
+  "mobileRightColumn": 47,
+  "mobileTopRow": 25,
+  "needsErrorInfo": false,
+  "onCheckChange": "{{\njsEvtWorkspace.requestClosedChange(\n\tchkEvtClosed.isChecked\n)\n}}",
+  "originalBottomRow": 29,
+  "originalTopRow": 25,
+  "parentColumnSpace": 6.2236328125,
+  "parentId": "de2lqw9wp0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 63,
+  "topRow": 25,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "cyh8naqod0",
+  "widgetName": "chkEvtClosed"
+}

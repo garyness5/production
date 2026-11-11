@@ -1,0 +1,57 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 100,
+  "defaultCheckedState": "{{\nappsmith.store.customer_form_mode === \"edit\"\n    ? qryCusGetCustomers.data.find(\n        row => Number(row.id) === Number(appsmith.store.current_customer_id)\n      )?.active ?? true\n    : true\n}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "defaultCheckedState"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "defaultCheckedState"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "7kkqxd8e6v",
+  "label": "Active",
+  "labelPosition": "Left",
+  "labelStyle": "BOLD",
+  "labelTextSize": "1rem",
+  "leftColumn": 1,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 37,
+  "mobileLeftColumn": 1,
+  "mobileRightColumn": 13,
+  "mobileTopRow": 33,
+  "needsErrorInfo": false,
+  "originalBottomRow": 100,
+  "originalTopRow": 96,
+  "parentColumnSpace": 7.53125,
+  "parentId": "ykslxlx79h",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 15,
+  "topRow": 96,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "7ardec4b5q",
+  "widgetName": "chkCustomerActive"
+}

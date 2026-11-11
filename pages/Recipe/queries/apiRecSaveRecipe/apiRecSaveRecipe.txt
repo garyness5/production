@@ -1,0 +1,20 @@
+{{ {
+	operation: "my_recipe_save",
+	recipe_id: Number(appsmith.store.current_recipe_id || 0) || null,
+	create_request_id:
+	Number(appsmith.store.current_recipe_id || 0) === 0
+	? appsmith.store.rec_create_request_id
+	: null,
+	header: {
+		...jsRecSave.headerPayload(),
+		...(Number(appsmith.store.current_recipe_id || 0) > 0
+				? { expected_revision:
+					 Number(appsmith.store.recipe_conflict_revision || 0) ||
+					 jsRecWorkspace.loadedRevision() }
+				: {})
+	},
+	diet_tags: jsRecSave.dietTagsPayload(),
+	components: jsRecSave.componentsPayload(),
+	clear_downstream_units:
+	appsmith.store.recipe_unit_change_confirmed === true
+} }}

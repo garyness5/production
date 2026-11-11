@@ -1,0 +1,7 @@
+select
+    id,
+    name
+from public.mnu_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(deleted, false) = false
+order by name;

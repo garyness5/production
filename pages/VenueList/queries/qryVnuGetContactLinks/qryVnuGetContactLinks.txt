@@ -1,0 +1,12 @@
+select
+    vcl.contact_id
+from public.venue_contact_links vcl
+join public.venues v
+    on v.id = vcl.venue_id
+   and v.client_id = vcl.client_id
+where vcl.venue_id =
+      {{ Number(appsmith.store.current_venue_id || 0) }}::bigint
+  and vcl.client_id =
+      {{ appsmith.store.current_client_id }}::uuid
+  and vcl.active = true
+order by vcl.contact_id;

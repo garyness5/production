@@ -1,0 +1,12 @@
+select
+    ccl.contact_id
+from public.customer_contact_links ccl
+join public.customers cu
+    on cu.id = ccl.customer_id
+   and cu.client_id = ccl.client_id
+where ccl.customer_id =
+      {{ Number(appsmith.store.current_customer_id || 0) }}::bigint
+  and ccl.client_id =
+      {{ appsmith.store.current_client_id }}::uuid
+  and ccl.active = true
+order by ccl.contact_id;

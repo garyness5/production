@@ -1,0 +1,6 @@
+select *
+from public.duplicate_customer_master(
+	{{ appsmith.user.email }}::text,
+	{{ Number(tblCustomers.selectedRow.id) }}::bigint,
+	{{ appsmith.store.current_client_id }}::uuid
+);

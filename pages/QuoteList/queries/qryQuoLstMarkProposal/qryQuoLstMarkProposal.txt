@@ -1,0 +1,13 @@
+insert into public.quo_proposal_read (
+    client_id,
+    proposal_id,
+    read_at
+)
+values (
+    '{{ appsmith.store.current_client_id }}'::uuid,
+    {{ this.params.proposalId }},
+    now()
+)
+on conflict (client_id, proposal_id)
+do update set
+    read_at = excluded.read_at;

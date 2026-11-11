@@ -1,0 +1,43 @@
+select
+  'ingredient'::text as item_type,
+  id,
+  name,
+  category_name,
+  yield_unit_id as default_unit_id,
+  yield_unit as default_unit,
+  unit_type,
+  wastage_percent,
+  allergen_names,
+  diet_tag_names,
+  price_per_unit,
+  cost_per_base_unit,
+  factor_to_base
+from public.vw_ing_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and active = true
+  and coalesce(deleted, false) = false
+
+union all
+
+select
+  'recipe'::text as item_type,
+  r.id,
+  r.name,
+  r.category_name,
+  r.yield_unit_id as default_unit_id,
+  r.yield_unit as default_unit,
+  r.yield_unit_type as unit_type,
+  0::numeric as wastage_percent,
+  r.derived_allergens as allergen_names,
+  r.diet_tag_names,
+  r.cost_per_unit as price_per_unit,
+  r.cost_per_base_unit,
+  u.factor_to_base
+from public.vw_rec_items r
+left join public.units u
+  on u.id = r.yield_unit_id
+where r.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and r.active = true
+  and coalesce(r.deleted, false) = false
+
+order by item_type, name;

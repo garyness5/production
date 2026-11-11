@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_3b7085cf-4841-406b-aff6-f81773a1bf50",
+  "id": "Recipe_jsAppInit",
+  "unpublishedCollection": {
+    "name": "jsAppInit",
+    "pageId": "Recipe",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "lastFailure",
+        "value": "null"
+      }
+    ]
+  }
+}

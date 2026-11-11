@@ -1,0 +1,7 @@
+SELECT *
+FROM public.save_quo_event_details(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(this.params.eventId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	{{ this.params.internalNotes ?? null }}::text
+);

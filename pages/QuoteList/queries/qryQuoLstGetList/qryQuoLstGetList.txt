@@ -1,0 +1,5 @@
+SELECT *
+FROM public.get_quote_event_list(
+	'{{ appsmith.user.email }}',
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

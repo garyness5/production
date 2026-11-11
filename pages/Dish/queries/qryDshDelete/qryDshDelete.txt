@@ -1,0 +1,6 @@
+select *
+from public.delete_dish(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.current_dish_id || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

@@ -1,0 +1,5 @@
+select *
+from public.check_gro_queue_sources(
+	{{ appsmith.user.email }}::text,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

@@ -1,0 +1,53 @@
+select
+  id,
+  line_no,
+  supplier_name,
+  category_name,
+  ingredient_code,
+  ingredient_name,
+  buy_qty,
+  buy_unit,
+  packs_to_order,
+  packaging_name,
+  purchased,
+  print_sort_no
+from public.gro_print
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+order by
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'supplier'
+    then case when coalesce(supplier_name,'') = '' then 1 else 0 end
+  end,
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'supplier'
+    then lower(coalesce(supplier_name,''))
+  end,
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'category'
+    then case when coalesce(category_name,'') = '' then 1 else 0 end
+  end,
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'category'
+    then lower(coalesce(category_name,''))
+  end,
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'ingredient'
+    then lower(coalesce(ingredient_name,''))
+  end,
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'code'
+    then case when coalesce(ingredient_code,'') = '' then 1 else 0 end
+  end,
+
+  case
+    when '{{ appsmith.store.gro_print_sort || "supplier" }}' = 'code'
+    then lower(coalesce(ingredient_code,''))
+  end,
+
+  lower(coalesce(ingredient_name,''));

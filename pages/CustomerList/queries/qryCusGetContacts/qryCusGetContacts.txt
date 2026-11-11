@@ -1,0 +1,34 @@
+select
+  id,
+  contact_name,
+  title,
+  phone,
+  mobile,
+  email,
+
+  case
+    when nullif(trim(email), '') is not null then
+      contact_name || ' — ' || email
+
+    when nullif(trim(mobile), '') is not null then
+      contact_name || ' — ' || mobile
+
+    when nullif(trim(phone), '') is not null then
+      contact_name || ' — ' || phone
+
+    when nullif(trim(title), '') is not null then
+      contact_name || ' — ' || title
+
+    else
+      contact_name || ' — No contact details'
+  end as display_name
+
+from public.vw_contacts
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(deleted, false) = false
+  and active = true
+
+order by
+  lower(contact_name),
+  lower(coalesce(email, '')),
+  id;

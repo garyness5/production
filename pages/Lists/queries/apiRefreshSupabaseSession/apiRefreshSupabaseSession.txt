@@ -1,0 +1,3 @@
+{
+  "refresh_token": "{{appsmith.store.savveyra_refresh_token}}"
+}

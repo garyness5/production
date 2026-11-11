@@ -1,0 +1,11 @@
+select c.*
+from public.vw_mnu_components c
+where c.menu_id = {{ Number(appsmith.store.current_menu_id || 0) }}
+  and exists (
+		select 1
+		from public.mnu_items m
+		where m.id = c.menu_id
+		and m.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+		and coalesce(m.deleted, false) = false
+	)
+order by c.line_no;

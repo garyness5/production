@@ -1,0 +1,89 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 21,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  (jsEvtWorkspace.get().venue_contact_ids || []).map(String) ))(msEvtVenueContacts.options, msEvtVenueContacts.serverSideFiltering) }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "onOptionChange"
+    },
+    {
+      "key": "onDropdownOpen"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onOptionChange"
+    },
+    {
+      "key": "onDropdownOpen"
+    }
+  ],
+  "isDisabled": "{{ jsEvtWorkspace.isClosedLocked() }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "bq1151n9mo",
+  "labelAlignment": "left",
+  "labelPosition": "Left",
+  "labelStyle": "",
+  "labelText": "Contact",
+  "labelTextSize": "0.875rem",
+  "labelWidth": "11",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 27,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 18,
+  "mobileTopRow": 20,
+  "needsErrorInfo": false,
+  "onDropdownOpen": "{{ qryEvtGetVenueContacts.run() }}",
+  "onOptionChange": "{{\njsEvtAddressBook.captureContactSelection(\n\t\"venue\"\n)\n}}",
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 21,
+  "originalTopRow": 17,
+  "parentColumnSpace": 6.21240234375,
+  "parentId": "de2lqw9wp0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select venue contacts",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 58,
+  "serverSideFiltering": false,
+  "sourceData": "{{\nArray.isArray(qryEvtGetVenueContacts.data)\n? qryEvtGetVenueContacts.data\n: []\n}}",
+  "topRow": 17,
+  "type": "MULTI_SELECT_WIDGET_V2",
+  "version": 1,
+  "widgetId": "jid3xxoe66",
+  "widgetName": "msEvtVenueContacts"
+}

@@ -1,0 +1,71 @@
+{
+  "backgroundColor": "#FFFFFF",
+  "borderColor": "",
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "borderWidth": "1",
+  "bottomRow": 8,
+  "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
+  "defaultModel": "{{\n{\n\tcontacts:\n\tjsEvtAddressBook.selectedContactDetails()\n}\n}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "theme"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
+    },
+    {
+      "key": "defaultModel"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onResetClick"
+    }
+  ],
+  "events": [
+    "onResetClick"
+  ],
+  "isCanvas": false,
+  "isLoading": false,
+  "isSearchWildcard": true,
+  "isVisible": true,
+  "key": "aa64ykxm5t",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "mobileBottomRow": 45,
+  "mobileLeftColumn": 12,
+  "mobileRightColumn": 35,
+  "mobileTopRow": 15,
+  "needsErrorInfo": false,
+  "onResetClick": "{{showAlert('Successfully reset!!', '');}}",
+  "originalBottomRow": 14,
+  "originalTopRow": 4,
+  "parentColumnSpace": 8.20849609375,
+  "parentId": "ump0dn2ent",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "rightColumn": 64,
+  "shouldScrollContents": true,
+  "srcDoc": {
+    "css": ":root {\n  font-family: \"Open Sans\", sans-serif;\n  font-size: 1rem;\n  color: #231f20;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background: transparent;\n  font-size: 0.9rem;\n}\n\n#root {\n  display: flex;\n  flex-direction: column;\n  gap: 0.75em;\n}\n\n.contact-card {\n  padding: 0.9em 0.75em;\n  border: 0.06em solid #d4d4d8;\n  border-radius: 0.38em;\n  background: #fff;\n  line-height: 1.45;\n}\n\n.contact-heading {\n  font-weight: 600;\n  font-size: 1rem;\n  margin-bottom: 0.3em;\n  padding: 0.18em 0.4em 0.18em 0;\n  border-radius: 0.25em;\n}\n\n.contact-heading.deleted {\n  background: #FFE6E6;\n}\n\n.contact-heading.inactive {\n  background: #FFF3CD;\n}\n\n.contact-card div {\n  margin: 0.12em 0;\n}\n\nstrong {\n  font-weight: 600;\n}\n\n.notes {\n  margin-top: 0.4em;\n}\n\n.empty {\n  color: #71717a;\n  font-style: italic;\n  padding: 0.4em 0;\n}\n\n.contact-card.deleted {\n  background: #FFE6E6;\n}\n\n.contact-card.inactive {\n  background: #FFF3CD;\n}",
+    "html": "<!-- no need to write html, head, body tags, it is handled by the widget -->\n<div id=\"root\"></div>\n",
+    "js": "function escapeHtml(value) {\n  return String(value ?? \"\").replaceAll(\"&\", \"&amp;\").replaceAll(\"<\", \"&lt;\").replaceAll(\">\", \"&gt;\").replaceAll('\"', \"&quot;\").replaceAll(\"'\", \"&#039;\");\n}\nfunction renderContacts(model) {\n  const root = document.getElementById(\"root\");\n  const contacts = Array.isArray(model?.contacts) ? model.contacts : [];\n  if (!contacts.length) {\n    root.innerHTML = '<div class=\"empty\">No Contacts selected.</div>';\n    return;\n  }\n  root.innerHTML = contacts.map(contact => {\n    const name = escapeHtml(contact.contact_name || contact.label || \"Contact\");\n    const title = String(contact.title || \"\").trim();\n    const heading = title ? `${name} (${escapeHtml(title)})` : name;\n    const lines = [contact.phone ? `<div><strong>Phone:</strong> ${escapeHtml(contact.phone)}</div>` : \"\", contact.mobile ? `<div><strong>Mobile:</strong> ${escapeHtml(contact.mobile)}</div>` : \"\", contact.email ? `<div><strong>Email:</strong> ${escapeHtml(contact.email)}</div>` : \"\", contact.notes ? `<div class=\"notes\"><strong>Notes:</strong> ${escapeHtml(contact.notes)}</div>` : \"\"].filter(Boolean).join(\"\");\n    const cardClass = contact.deleted ? \"contact-card deleted\" : !contact.active ? \"contact-card inactive\" : \"contact-card\";\n    const statusClass = contact.deleted ? \"deleted\" : contact.active === false ? \"inactive\" : \"\";\n    return `\n\t<div class=\"contact-card\">\n\t\t<div class=\"contact-heading ${statusClass}\">\n\t\t\t${heading}\n\t\t</div>\n\t\t${lines}\n\t</div>\n`;\n  }).join(\"\");\n}\nappsmith.onReady(() => {\n  renderContacts(appsmith.model);\n  appsmith.onModelChange(newModel => {\n    renderContacts(newModel);\n  });\n});"
+  },
+  "theme": "{{appsmith.theme}}",
+  "topRow": 4,
+  "type": "CUSTOM_WIDGET",
+  "uncompiledSrcDoc": {
+    "css": ":root {\n\tfont-family: \"Open Sans\", sans-serif;\n\tfont-size: 1rem;\n\tcolor: #231f20;\n}\n\nbody {\n\tmargin: 0;\n\tpadding: 0;\n\tbackground: transparent;\n\tfont-size: .9rem;\n}\n\n#root {\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 0.75em;\n}\n\n.contact-card {\n\tpadding: .9em .75em;\n\tborder: 0.06em solid #d4d4d8;\n\tborder-radius: 0.38em;\n\tbackground: #fff;\n\tline-height: 1.45;\n}\n\n.contact-heading {\n\tfont-weight: 600;\n\tfont-size: 1rem;\n\tmargin-bottom: 0.3em;\n\tpadding: 0.18em 0.4em 0.18em 0;\n\tborder-radius: 0.25em;\n}\n\n.contact-heading.deleted {\n\tbackground: #FFE6E6;\n}\n\n.contact-heading.inactive {\n\tbackground: #FFF3CD;\n}\n\n.contact-card div {\n\tmargin: 0.12em 0;\n}\n\nstrong {\n\tfont-weight: 600;\n}\n\n.notes {\n\tmargin-top: 0.4em;\n}\n\n.empty {\n\tcolor: #71717a;\n\tfont-style: italic;\n\tpadding: 0.4em 0;\n}\n\n.contact-card.deleted {\n\tbackground: #FFE6E6;\n}\n\n.contact-card.inactive {\n\tbackground: #FFF3CD;\n}",
+    "html": "<!-- no need to write html, head, body tags, it is handled by the widget -->\n<div id=\"root\"></div>\n",
+    "js": "function escapeHtml(value) {\n\treturn String(value ?? \"\")\n\t\t.replaceAll(\"&\", \"&amp;\")\n\t\t.replaceAll(\"<\", \"&lt;\")\n\t\t.replaceAll(\">\", \"&gt;\")\n\t\t.replaceAll('\"', \"&quot;\")\n\t\t.replaceAll(\"'\", \"&#039;\");\n}\n\nfunction renderContacts(model) {\n\tconst root = document.getElementById(\"root\");\n\n\tconst contacts = Array.isArray(model?.contacts)\n\t? model.contacts\n\t: [];\n\n\tif (!contacts.length) {\n\t\troot.innerHTML =\n\t\t\t'<div class=\"empty\">No Contacts selected.</div>';\n\n\t\treturn;\n\t}\n\n\troot.innerHTML = contacts\n\t\t.map(contact => {\n\t\tconst name =\n\t\t\t\t\tescapeHtml(\n\t\t\t\t\t\tcontact.contact_name ||\n\t\t\t\t\t\tcontact.label ||\n\t\t\t\t\t\t\"Contact\"\n\t\t\t\t\t);\n\n\t\tconst title =\n\t\t\t\t\tString(\n\t\t\t\t\t\tcontact.title || \"\"\n\t\t\t\t\t).trim();\n\n\t\tconst heading = title\n\t\t? `${name} (${escapeHtml(title)})`\n\t\t: name;\n\n\t\tconst lines = [\n\t\t\tcontact.phone\n\t\t\t? `<div><strong>Phone:</strong> ${escapeHtml(contact.phone)}</div>`\n\t\t\t: \"\",\n\n\t\t\tcontact.mobile\n\t\t\t? `<div><strong>Mobile:</strong> ${escapeHtml(contact.mobile)}</div>`\n\t\t\t: \"\",\n\n\t\t\tcontact.email\n\t\t\t? `<div><strong>Email:</strong> ${escapeHtml(contact.email)}</div>`\n\t\t\t: \"\",\n\n\t\t\tcontact.notes\n\t\t\t? `<div class=\"notes\"><strong>Notes:</strong> ${escapeHtml(contact.notes)}</div>`\n\t\t\t: \"\"\n\t\t]\n\t\t.filter(Boolean)\n\t\t.join(\"\");\n\n\t\tconst cardClass =\n\t\t\t\t\tcontact.deleted\n\t\t? \"contact-card deleted\"\n\t\t: !contact.active\n\t\t? \"contact-card inactive\"\n\t\t: \"contact-card\";\n\n\t\tconst statusClass =\n\t\t\t\t\tcontact.deleted\n\t\t? \"deleted\"\n\t\t: contact.active === false\n\t\t? \"inactive\"\n\t\t: \"\";\n\n\t\treturn `\n\t<div class=\"contact-card\">\n\t\t<div class=\"contact-heading ${statusClass}\">\n\t\t\t${heading}\n\t\t</div>\n\t\t${lines}\n\t</div>\n`;\n\t})\n\t\t.join(\"\");\n}\n\nappsmith.onReady(() => {\n\trenderContacts(appsmith.model);\n\n\tappsmith.onModelChange((newModel) => {\n\t\trenderContacts(newModel);\n\t});\n});"
+  },
+  "version": 1,
+  "widgetId": "kqchytg626",
+  "widgetName": "cstContactDetails"
+}

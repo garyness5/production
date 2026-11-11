@@ -1,0 +1,7 @@
+select *
+from public.set_event_proposal_status_secure(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.proposal_status_id || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	'{{ String(appsmith.store.proposal_status_request || "").replaceAll("'", "''") }}'
+);

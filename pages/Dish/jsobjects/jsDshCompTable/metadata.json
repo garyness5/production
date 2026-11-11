@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_76555b5f-5ee7-49d8-938c-76f4f182c7aa",
+  "id": "Dish_jsDshCompTable",
+  "unpublishedCollection": {
+    "name": "jsDshCompTable",
+    "pageId": "Dish",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "minRows",
+        "value": "10"
+      }
+    ]
+  }
+}

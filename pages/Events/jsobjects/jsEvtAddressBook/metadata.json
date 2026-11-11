@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_bd63639f-ca34-4a12-8e6a-fd546c75b2c8",
+  "id": "Events_jsEvtAddressBook",
+  "unpublishedCollection": {
+    "name": "jsEvtAddressBook",
+    "pageId": "Events",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

@@ -1,0 +1,14 @@
+select *
+from public.ensure_venue_contact_links(
+	{{ appsmith.user.email }}::text,
+	{{ Number(this.params.venue_id || 0) }}::bigint,
+	{{ appsmith.store.current_client_id }}::uuid,
+	{{
+	`{${
+	(this.params.contact_ids || [])
+	.map(Number)
+	.filter(Boolean)
+	.join(",")
+	}}`
+	}}::bigint[]
+);

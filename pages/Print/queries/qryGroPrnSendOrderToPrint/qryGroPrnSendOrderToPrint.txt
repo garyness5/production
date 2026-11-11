@@ -1,0 +1,5 @@
+select *
+from public.send_gro_order_to_print(
+	{{ appsmith.user.email }}::text,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

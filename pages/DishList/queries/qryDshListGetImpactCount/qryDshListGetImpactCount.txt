@@ -1,0 +1,24 @@
+with src as (
+	select id
+	from public.dsh_items
+	where id = {{ Number(tblDshList.selectedRow?.id || 0) }}
+	and client_id = '{{ appsmith.store.current_client_id }}'::uuid
+	and coalesce(deleted, false) = false
+)
+select
+    0 as recipe_count,
+    0 as dish_count,
+
+    (
+			select count(*)
+			from public.mnu_components mc
+			join public.mnu_items parent
+			on parent.id = mc.menu_id
+			join src s
+			on s.id = mc.child_dish_id
+			where mc.item_type = 'dish'
+			and parent.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+			and coalesce(parent.deleted, false) = false
+		) as menu_count,
+
+    0 as event_count;

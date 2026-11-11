@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_9e051a7e-8e3f-4875-884a-0a99503cab31",
+  "id": "QuoteList_jsQuoLstActions",
+  "unpublishedCollection": {
+    "name": "jsQuoLstActions",
+    "pageId": "QuoteList",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

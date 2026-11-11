@@ -1,0 +1,6 @@
+{{ {
+	operation: "set_my_recipe_active",
+	recipe_id: this.params.recipe_id,
+	active: this.params.active,
+	expected_revision: this.params.expected_revision
+} }}

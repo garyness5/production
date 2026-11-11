@@ -1,0 +1,23 @@
+select count(*) as match_count
+from public.evt_items
+where client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and coalesce(deleted, false) = false
+
+  and public.norm_name(name) =
+      public.norm_name(
+				'{{
+				String(
+					appsmith.store.event_name_check?.name || ""
+				)
+				.trim()
+				.replaceAll("'", "''")
+				}}'
+			)
+
+  and (
+		{{ Number(appsmith.store.event_name_check?.exclude_event_id || 0) }} = 0
+		or id <>
+		{{ Number(appsmith.store.event_name_check?.exclude_event_id || 0) }}
+	);

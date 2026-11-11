@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_55a9bc63-11aa-46bf-92f4-e0adf10f357b",
+  "id": "Events_jsEvtSave",
+  "unpublishedCollection": {
+    "name": "jsEvtSave",
+    "pageId": "Events",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

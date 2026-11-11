@@ -1,0 +1,4 @@
+select *
+from public.vw_evt_deposits
+where event_id = {{ appsmith.store.selectedQuotationEventId || 0 }}
+order by line_no;

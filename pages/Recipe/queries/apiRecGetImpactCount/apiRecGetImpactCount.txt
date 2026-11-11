@@ -1,0 +1,4 @@
+{{ {
+	operation: "get_my_recipe_impact",
+	recipe_id: Number(appsmith.store.current_recipe_id || 0)
+} }}

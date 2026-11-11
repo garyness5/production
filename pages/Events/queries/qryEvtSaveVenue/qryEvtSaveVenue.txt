@@ -1,0 +1,24 @@
+select *
+from public.save_venue_master(
+	{{ appsmith.user.email }}::text,
+
+	null::bigint,
+
+	{{ appsmith.store.current_client_id }}::uuid,
+
+	{{ (inpEvtVenueName.text ?? "").trim() }}::text,
+
+	{{ inpEvtVenueAddress.text ?? "" }}::text,
+
+	{{ (inpEvtVenuePhone.text ?? "").trim() }}::text,
+
+	{{ (inpEvtVenueMobile.text ?? "").trim() }}::text,
+
+	{{ (inpEvtVenueEmail.text ?? "").trim() }}::text,
+
+	{{ inpEvtVenueNotes.text ?? "" }}::text,
+
+	true::boolean,
+
+	'{}'::bigint[]
+);

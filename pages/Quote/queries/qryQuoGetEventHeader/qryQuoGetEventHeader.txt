@@ -1,0 +1,6 @@
+SELECT *
+FROM public.get_quote_event_header(
+	'{{ appsmith.user.email }}',
+	{{ Number(appsmith.store.quotationEventId || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

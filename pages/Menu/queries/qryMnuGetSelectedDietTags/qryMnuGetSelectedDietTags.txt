@@ -1,0 +1,10 @@
+select
+    mdt.helper_list_item_id::text as value,
+    mdt.helper_list_item_id
+from public.mnu_diet_tags mdt
+join public.mnu_items m
+  on m.id = mdt.menu_id
+where mdt.menu_id = {{ Number(appsmith.store.current_menu_id || 0) }}
+  and m.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(m.deleted, false) = false
+order by mdt.helper_list_item_id;

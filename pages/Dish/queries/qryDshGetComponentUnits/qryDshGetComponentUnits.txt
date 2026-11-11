@@ -1,0 +1,10 @@
+select
+  id,
+  abbreviation,
+  name,
+  unit_type,
+  factor_to_base,
+  sort_order
+from public.units
+where active = true
+order by unit_type, sort_order, abbreviation;

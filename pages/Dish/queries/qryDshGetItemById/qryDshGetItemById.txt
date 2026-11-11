@@ -1,0 +1,4 @@
+select *
+from public.vw_dsh_items
+where id = {{ Number(appsmith.store.current_dish_id || 0) }}
+  and client_id = '{{ appsmith.store.current_client_id }}'::uuid;

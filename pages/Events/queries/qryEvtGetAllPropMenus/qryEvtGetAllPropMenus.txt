@@ -1,0 +1,18 @@
+select
+    pm.*
+from public.vw_prop_menus pm
+join public.prop_items pi
+  on pi.id = pm.proposal_id
+where pm.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and pm.event_id =
+      {{ Number(appsmith.store.current_event_id || 0) }}
+
+  and coalesce(pi.hidden, false) = false
+  and coalesce(pi.deleted, false) = false
+
+order by
+    pm.proposal_id,
+    pm.line_no,
+    pm.id;

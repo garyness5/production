@@ -1,0 +1,49 @@
+select
+  go.id,
+  go.line_no,
+  go.ingredient_id,
+  go.ingredient_code,
+  go.ingredient_name,
+  go.category_name,
+
+  -- stored/base requirement
+  go.required_qty as stored_required_qty,
+  go.required_unit_id as stored_required_unit_id,
+  go.required_unit as stored_required_unit,
+
+  -- user's display unit preference
+  coalesce(go.display_required_unit_id, go.required_unit_id) as required_unit_id,
+
+  round(
+		go.required_qty
+		* stored_u.factor_to_base
+		/ display_u.factor_to_base,
+		2
+	) as required_qty,
+
+  display_u.abbreviation as required_unit,
+
+  go.buy_qty,
+  go.buy_unit_id,
+  go.buy_unit,
+  go.to_order,
+  go.purchased,
+  go.supplier_id,
+  go.supplier_name,
+  go.packaging_id,
+  go.packaging_name,
+  go.packs_to_order
+
+from public.gro_order go
+
+join public.units stored_u
+  on stored_u.id = go.required_unit_id
+
+join public.units display_u
+  on display_u.id =
+     coalesce(go.display_required_unit_id, go.required_unit_id)
+
+where go.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+order by go.line_no;

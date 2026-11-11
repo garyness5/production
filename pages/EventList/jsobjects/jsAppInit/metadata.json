@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_e4c45dd6-7c92-4d98-8a76-768f481f2654",
+  "id": "EventList_jsAppInit",
+  "unpublishedCollection": {
+    "name": "jsAppInit",
+    "pageId": "EventList",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

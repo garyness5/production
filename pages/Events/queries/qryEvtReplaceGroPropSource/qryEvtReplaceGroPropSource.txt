@@ -1,0 +1,6 @@
+select *
+from public.replace_gro_proposal_source(
+	{{ Number(appsmith.store.current_proposal_id || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	true
+);

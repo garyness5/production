@@ -1,0 +1,4 @@
+select *
+from public.vw_evt_items
+where id = {{ Number(appsmith.store.current_event_id || 0) }}
+  and client_id = '{{ appsmith.store.current_client_id }}'::uuid;

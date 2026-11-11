@@ -1,0 +1,6 @@
+select *
+from public.save_gro_order_rows(
+	{{ appsmith.user.email }}::text,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	'{{ JSON.stringify(jsOrdTable.rowsForSave()).replaceAll("'", "''") }}'::jsonb
+);

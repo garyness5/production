@@ -1,0 +1,15 @@
+SELECT *
+FROM public.save_quote_menu_pricing(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.quotationQuoteId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	'{{ JSON.stringify(
+		(appsmith.store.quotationMenuRows || []).map(r => ({
+			quote_menu_id: r.quote_menu_id,
+			price_per_guest_markup_percent: r.price_per_guest_markup_percent,
+			selling_price_per_guest: r.selling_price_per_guest,
+			total_markup_percent: r.total_markup_percent,
+			selling_total: r.selling_total
+		}))
+	) }}'::jsonb
+);

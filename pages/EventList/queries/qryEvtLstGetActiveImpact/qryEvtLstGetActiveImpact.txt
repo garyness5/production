@@ -1,0 +1,10 @@
+select *
+from public.get_event_delete_impact(
+	'{{ appsmith.user.email }}'::text,
+	{{
+	Number(
+		appsmith.store.evt_list_active_action?.id || 0
+	)
+	}},
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

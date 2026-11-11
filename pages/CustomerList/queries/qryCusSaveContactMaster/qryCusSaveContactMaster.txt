@@ -1,0 +1,28 @@
+select *
+from public.save_contact_master(
+  {{ appsmith.user.email }}::text,
+  null::bigint,
+  {{ appsmith.store.current_client_id }}::uuid,
+
+	{{ (inpContactName.text ?? "").trim() }}::text,
+	{{ (inpContactTitle.text ?? "").trim() }}::text,
+	{{ (inpContactPhone.text ?? "").trim() }}::text,
+	{{ (inpContactMobile.text ?? "").trim() }}::text,
+	{{ (inpContactEmail.text ?? "").trim() }}::text,
+	{{ (inpContactNotes.text ?? "").trim() }}::text,
+
+	true::boolean,
+
+	case
+	when coalesce(
+		{{ Number(appsmith.store.current_customer_id || 0) }},
+		0
+	) > 0
+	then array[
+		{{ Number(appsmith.store.current_customer_id || 0) }}
+	]::bigint[]
+	else '{}'::bigint[]
+	end,
+
+	'{}'::bigint[]
+);

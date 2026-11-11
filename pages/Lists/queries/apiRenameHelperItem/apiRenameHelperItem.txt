@@ -1,0 +1,7 @@
+{{
+{
+	operation: "rename_my_helper_item",
+	helper_item_id: this.params.helper_item_id,
+	name: this.params.name
+}
+}}

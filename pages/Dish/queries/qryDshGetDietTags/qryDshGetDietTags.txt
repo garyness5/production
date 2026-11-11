@@ -1,0 +1,8 @@
+select
+  id,
+  name
+from public.helper_list_items
+where client_id = {{ appsmith.store.current_client_id }}
+  and list_id = 5
+  and active = true
+order by name;

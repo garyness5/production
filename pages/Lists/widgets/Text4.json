@@ -1,0 +1,55 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 198,
+  "dynamicBindingPathList": [
+    {
+      "key": "truncateButtonColor"
+    },
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "BOLD",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "tue20l9dzr",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 99,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 16,
+  "mobileTopRow": 95,
+  "needsErrorInfo": false,
+  "originalBottomRow": 198,
+  "originalTopRow": 181,
+  "overflow": "NONE",
+  "parentColumnSpace": 17.9375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 16,
+  "shouldTruncate": false,
+  "text": "{{\n  JSON.stringify({\n    currentTime: new Date().toLocaleString(),\n    expiresAt: new Date(\n      Number(appsmith.store.savveyra_token_expires_at)\n    ).toLocaleString(),\n    minutesRemaining: Math.round(\n      (\n        Number(appsmith.store.savveyra_token_expires_at) -\n        Date.now()\n      ) / 60000\n    ),\n    failure: jsAuthSession.lastFailure\n  }, null, 2)\n}}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 181,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "rk9xi1y5kh",
+  "widgetName": "Text4"
+}

@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_53486457-4c7d-4336-b587-567b252def52",
+  "id": "Menu_jsMnuSave",
+  "unpublishedCollection": {
+    "name": "jsMnuSave",
+    "pageId": "Menu",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "pendingAction",
+        "value": "null"
+      }
+    ]
+  }
+}

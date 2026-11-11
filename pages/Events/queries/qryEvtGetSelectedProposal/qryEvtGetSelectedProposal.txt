@@ -1,0 +1,12 @@
+select
+    v.*
+
+from public.vw_prop_items v
+
+where v.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and v.id =
+      {{ Number(appsmith.store.current_proposal_id || 0) }}
+
+limit 1;

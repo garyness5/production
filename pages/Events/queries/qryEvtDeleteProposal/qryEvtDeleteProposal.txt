@@ -1,0 +1,6 @@
+select *
+from public.delete_event_proposal_secure(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.proposal_delete_id || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

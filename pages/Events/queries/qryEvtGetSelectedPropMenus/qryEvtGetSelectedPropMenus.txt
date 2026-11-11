@@ -1,0 +1,49 @@
+select
+    id,
+    proposal_id,
+    client_id,
+    event_id,
+    event_component_id,
+    menu_id,
+    line_no,
+
+    menu_name,
+    current_menu_name,
+    menu_renamed,
+    display_menu_name,
+
+    category_id,
+    category_name,
+    current_category_id,
+    current_category_name,
+
+    guests,
+    extra_guests,
+    production_guests,
+
+    kitchen_cost,
+    frozen_cost_per_unit,
+
+    allergen_names,
+    diet_tag_names,
+    notes,
+
+    active,
+    current_menu_active,
+    current_menu_deleted,
+    component_status,
+
+    created_at,
+    updated_at
+
+from public.vw_prop_menus
+
+where client_id =
+    '{{ appsmith.store.current_client_id }}'::uuid
+
+  and proposal_id =
+    {{ Number(appsmith.store.current_proposal_id || 0) }}
+
+order by
+    line_no,
+    id;

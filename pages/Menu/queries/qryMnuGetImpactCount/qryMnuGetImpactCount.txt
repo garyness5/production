@@ -1,0 +1,12 @@
+select
+	count(distinct pi.event_id)::integer as event_count
+from public.prop_menus pm
+join public.prop_items pi
+	on pi.id = pm.proposal_id
+join public.evt_items e
+	on e.id = pi.event_id
+	and e.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+where pm.menu_id = {{ Number(appsmith.store.current_menu_id || 0) }}
+	and pi.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+	and coalesce(pi.deleted, false) = false
+	and coalesce(e.deleted, false) = false;

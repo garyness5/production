@@ -1,0 +1,75 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 12,
+  "bottomRowBeforeCollapse": 16,
+  "boxShadow": "none",
+  "defaultText": "{{\n  qryQuoGetSelectedQuote.data?.[0]?.pricing_mode === \"per_menu\"\n    ? qryQuoGetSelectedQuote.data?.[0]?.quote_total ?? \"\"\n    : qryQuoGetSelectedQuote.data?.[0]?.event_price_total ?? \"\"\n}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "defaultText"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "iconAlign": "left",
+  "inputType": "TEXT",
+  "isDisabled": "{{\n  (qryQuoGetSelectedQuote.data?.[0]?.quote_status || \"\") !== \"Draft\" ||\n  selQuoPricingMode.selectedOptionValue === \"per_menu\"\n}}",
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{\n  selQuoPricingMode.selectedOptionValue === \"event_total\"\n}}",
+  "key": "tf8p5dbja2",
+  "label": "Event Price",
+  "labelAlignment": "left",
+  "labelPosition": "Left",
+  "labelStyle": "",
+  "labelTextSize": "0.875rem",
+  "labelWidth": "26",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 7,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 20,
+  "mobileTopRow": 0,
+  "needsErrorInfo": false,
+  "originalBottomRow": 12,
+  "originalTopRow": 8,
+  "parentColumnSpace": 6.296875,
+  "parentId": "xlfc3so3d3",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": true,
+  "responsiveBehavior": "fill",
+  "rightColumn": 61,
+  "showStepArrows": false,
+  "topRow": 8,
+  "topRowBeforeCollapse": 12,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "06n28f3hgd",
+  "widgetName": "inpQuoEventPriceTotal"
+}

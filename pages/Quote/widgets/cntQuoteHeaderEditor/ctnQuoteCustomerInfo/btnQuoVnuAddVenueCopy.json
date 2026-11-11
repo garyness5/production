@@ -1,0 +1,66 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 28,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "SECONDARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "iconName"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "iconName"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "iconAlign": "left",
+  "iconName": "{{\n  Number(selQuoCusContact.selectedOptionValue || 0) > 0\n    ? \"info-sign\"\n    : \"plus\"\n}}",
+  "isDefaultClickDisabled": true,
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": true,
+  "key": "brlx8potul",
+  "leftColumn": 56,
+  "minWidth": 120,
+  "mobileBottomRow": 27,
+  "mobileLeftColumn": 20,
+  "mobileRightColumn": 36,
+  "mobileTopRow": 23,
+  "needsErrorInfo": false,
+  "onClick": "{{\n  (() => {\n    const venueId =\n      Number(selQuoVenue.selectedOptionValue || 0) ||\n      Number(qryQuoGetSelectedQuote.data?.[0]?.venue_id || 0);\n\n    return storeValue(\n      \"quo_venue_mode\",\n      venueId ? \"edit\" : \"add\"\n    )\n      .then(() =>\n        storeValue(\n          \"quo_venue_id\",\n          venueId || null\n        )\n      )\n      .then(() => qryQuoGetVenues.run())\n      .then(() => resetWidget(\"mdlQuoVenue\", true))\n      .then(() => showModal(\"mdlQuoVenue\"));\n  })()\n}}",
+  "originalBottomRow": 28,
+  "originalTopRow": 24,
+  "parentColumnSpace": 6.021484375,
+  "parentId": "pfw5ch02xm",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 62,
+  "text": "",
+  "tooltip": "",
+  "topRow": 24,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "ijt40v7j9x",
+  "widgetName": "btnQuoVnuAddVenueCopy"
+}

@@ -1,0 +1,5 @@
+{{ {
+	operation: "save_my_ingredient",
+	ingredient_id: this.params.ingredient_id,
+	payload: this.params.payload
+} }}

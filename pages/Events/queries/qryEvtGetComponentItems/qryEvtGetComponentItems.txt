@@ -1,0 +1,14 @@
+select
+  id,
+  name,
+  category_id,
+  category_name,
+  total_cost,
+  cost_per_unit,
+  derived_allergens as allergen_names,
+  diet_tag_names,
+  active,
+  deleted
+from public.vw_mnu_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+order by lower(category_name), lower(name);

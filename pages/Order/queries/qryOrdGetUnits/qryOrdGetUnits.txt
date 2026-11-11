@@ -1,0 +1,7 @@
+select
+  id,
+  abbreviation,
+  unit_type,
+  factor_to_base
+from public.units
+order by unit_type, abbreviation;

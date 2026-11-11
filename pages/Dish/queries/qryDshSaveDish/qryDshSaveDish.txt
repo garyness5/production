@@ -1,0 +1,9 @@
+select *
+from public.save_dish(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.current_dish_id || 0) || null }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	'{{ JSON.stringify(jsDshSave.headerPayload()).replaceAll("'", "''") }}'::jsonb,
+	'{{ JSON.stringify(jsDshSave.dietTagsPayload()).replaceAll("'", "''") }}'::jsonb,
+	'{{ JSON.stringify(jsDshSave.componentsPayload()).replaceAll("'", "''") }}'::jsonb
+);

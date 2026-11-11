@@ -1,0 +1,32 @@
+select
+  id,
+  venue_name,
+  address,
+  phone,
+  mobile,
+  email,
+  contact_name,
+  contact_names,
+  generic_notes,
+  active
+from public.vw_venues
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(deleted, false) = false
+  and (
+    '{{ selVenueFilter.selectedOptionValue || "all" }}' = 'all'
+    or (
+      '{{ selVenueFilter.selectedOptionValue || "all" }}' = 'active'
+      and active = true
+    )
+    or (
+      '{{ selVenueFilter.selectedOptionValue || "all" }}' = 'inactive'
+      and active = false
+    )
+  )
+  and (
+    '{{ (inpVenueSearch.text || "").trim().replaceAll("'", "''") }}' = ''
+    or venue_name ilike '%' || '{{ (inpVenueSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+    or coalesce(address, '') ilike '%' || '{{ (inpVenueSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+    or coalesce(contact_names, '') ilike '%' || '{{ (inpVenueSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+  )
+order by lower(venue_name);

@@ -1,0 +1,6 @@
+{
+	"operation": "replace_delete_my_helper_item",
+	"helper_item_id": "{{this.params.helper_item_id}}",
+	"replace_with_id": {{this.params.replace_with_id ?? null}},
+	"delete_original": {{this.params.delete_original ?? false}}
+}

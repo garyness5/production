@@ -1,0 +1,6 @@
+{{
+{
+	operation: "delete_my_ingredient",
+	ingredient_id: this.params.ingredient_id
+}
+}}

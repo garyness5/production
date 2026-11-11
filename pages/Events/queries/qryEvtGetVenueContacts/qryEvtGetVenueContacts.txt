@@ -1,0 +1,59 @@
+select
+    c.id::text as value,
+
+		case
+				when count(*) over (
+					partition by lower(trim(c.contact_name))
+				) > 1 then
+						c.contact_name ||
+						case
+								when nullif(trim(c.email), '') is not null
+										then ' — ' || c.email
+								when nullif(trim(c.mobile), '') is not null
+										then ' — ' || c.mobile
+								when nullif(trim(c.phone), '') is not null
+										then ' — ' || c.phone
+								when nullif(trim(c.title), '') is not null
+										then ' — ' || c.title
+								else
+										' — Contact ' || c.id
+						end
+				else
+						c.contact_name
+		end as label,
+
+    c.contact_name,
+    c.title,
+    c.phone,
+    c.mobile,
+    c.email,
+    c.notes,
+    c.active,
+    c.deleted,
+
+    exists (
+			select 1
+			from public.venue_contact_links vcl
+			where vcl.client_id = c.client_id
+			and vcl.contact_id = c.id
+			and vcl.venue_id =
+			nullif(
+				{{ Number(selEvtVenue.selectedOptionValue || 0) }},
+				0
+			)
+			and vcl.active = true
+		) as linked_to_selected_venue
+
+from public.vw_contacts c
+
+where c.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and c.active = true
+  and coalesce(c.deleted, false) = false
+
+order by
+    linked_to_selected_venue desc,
+    lower(c.contact_name),
+    lower(coalesce(c.email, '')),
+    c.id;

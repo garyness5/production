@@ -1,0 +1,7 @@
+SELECT *
+FROM public.save_quote_menu_pricing(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(this.params.quoteId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	'{{ JSON.stringify(this.params.rows || []) }}'::jsonb
+);

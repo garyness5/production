@@ -1,0 +1,72 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 12,
+  "defaultCheckedState": "{{\njsPropData.proposal()?.accepted === true\n}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "defaultCheckedState"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "defaultCheckedState"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onCheckChange"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onCheckChange"
+    }
+  ],
+  "isDisabled": "{{\n!jsPropData.hasSelectedProposal() ||\nNumber(appsmith.store.current_proposal_id || 0) <= 0\n}}",
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "b1cxnb3vlt",
+  "label": "Accepted",
+  "labelPosition": "Left",
+  "labelStyle": "",
+  "labelTextColor": "",
+  "labelTextSize": "0.875rem",
+  "leftColumn": 4,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 21,
+  "mobileLeftColumn": 36,
+  "mobileRightColumn": 48,
+  "mobileTopRow": 17,
+  "needsErrorInfo": false,
+  "onCheckChange": "{{\njsPropActions.setAccepted(\n\tchkSelPropAccepted.isChecked\n)\n}}",
+  "originalBottomRow": 13,
+  "originalTopRow": 9,
+  "parentColumnSpace": 17.875,
+  "parentId": "5jjow9bgje",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 31,
+  "topRow": 8,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "65arlmbwy8",
+  "widgetName": "chkSelPropAccepted"
+}

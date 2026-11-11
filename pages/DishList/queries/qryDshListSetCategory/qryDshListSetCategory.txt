@@ -1,0 +1,7 @@
+select *
+from public.set_dish_category(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(tblDshList.updatedRow?.id || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	{{ Number(tblDshList.updatedRow?.category_name || 0) || null }}
+);

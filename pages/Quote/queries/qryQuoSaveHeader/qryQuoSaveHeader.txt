@@ -1,0 +1,7 @@
+SELECT *
+FROM public.save_quote_header(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(this.params.quoteId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	'{{ JSON.stringify(this.params.header || {}) }}'::jsonb
+);

@@ -1,0 +1,6 @@
+SELECT *
+FROM public.create_quote(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(this.params.inboxId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

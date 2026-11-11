@@ -1,0 +1,10 @@
+select
+  hli.id,
+  hli.name
+from helper_list_items hli
+join helper_lists hl
+  on hl.id = hli.list_id
+where hl.list_code = 'diet_tag'
+  and hli.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and hli.active = true
+order by lower(hli.name);

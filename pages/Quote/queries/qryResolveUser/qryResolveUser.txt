@@ -1,0 +1,4 @@
+SELECT *
+FROM public.resolve_savveyra_user(
+	{{ appsmith.user.email }}
+);

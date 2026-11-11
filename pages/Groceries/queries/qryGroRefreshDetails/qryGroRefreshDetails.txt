@@ -1,0 +1,5 @@
+select *
+from public.refresh_gro_details(
+	{{ appsmith.user.email }}::text,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

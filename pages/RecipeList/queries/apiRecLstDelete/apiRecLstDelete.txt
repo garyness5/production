@@ -1,0 +1,7 @@
+{{
+{
+	operation: "delete_my_recipe",
+	recipe_id: this.params.recipe_id,
+	expected_revision: this.params.expected_revision
+}
+}}

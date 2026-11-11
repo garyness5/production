@@ -1,0 +1,60 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 4,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "TERTIARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "text"
+    },
+    {
+      "key": "buttonColor"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": true,
+  "key": "iu27lzhy00",
+  "leftColumn": 0,
+  "minWidth": 120,
+  "mobileBottomRow": 19,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 16,
+  "mobileTopRow": 15,
+  "needsErrorInfo": false,
+  "onClick": "{{\n  storeValue(\n    \"accEvtCustomerNotes\",\n    !appsmith.store.accEvtCustomerNotes\n  );\n}}",
+  "originalBottomRow": 161,
+  "originalTopRow": 157,
+  "parentColumnSpace": 17.9375,
+  "parentId": "j67u6mhl3r",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 3,
+  "text": "{{\nappsmith.store.accEvtCustomerNotes\n? \"▲\"\n: \"▼\"\n}}",
+  "topRow": 0,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "47u44lk7jy",
+  "widgetName": "accEvtCustomerNotes"
+}

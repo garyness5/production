@@ -1,0 +1,20 @@
+{
+  "gitSyncId": "6ad02e5d7089041c6d575f1b_492618b7-3bfb-4463-9544-c25020d89ec2",
+  "id": "Recipe_jsAuthSession",
+  "unpublishedCollection": {
+    "name": "jsAuthSession",
+    "pageId": "Recipe",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "lastFailure",
+        "value": "null"
+      },
+      {
+        "name": "refreshInProgress",
+        "value": "null"
+      }
+    ]
+  }
+}

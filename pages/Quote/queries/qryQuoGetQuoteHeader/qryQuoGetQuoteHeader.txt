@@ -1,0 +1,6 @@
+SELECT *
+FROM public.get_quote_header(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.quotationQuoteId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

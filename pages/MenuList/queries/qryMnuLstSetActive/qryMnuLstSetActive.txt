@@ -1,0 +1,6 @@
+select public.set_menu_active(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(tblMnuList.updatedRow?.id || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid,
+	{{ tblMnuList.updatedRow?.active === true }}
+);

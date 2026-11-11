@@ -1,0 +1,66 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 6,
+  "bottomRowBeforeCollapse": 6,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !jsPicklistRules.hasSelection() || jsPicklistRules.isProtectedSystemItem() }}",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "ve73w085th",
+  "leftColumn": 27,
+  "minWidth": 120,
+  "mobileBottomRow": 17,
+  "mobileLeftColumn": 4,
+  "mobileRightColumn": 20,
+  "mobileTopRow": 13,
+  "needsErrorInfo": false,
+  "onClick": "{{ jsPicklistActions.openReplaceDelete() }}",
+  "originalBottomRow": 6,
+  "originalTopRow": 2,
+  "parentColumnSpace": 11.005859375,
+  "parentId": "tjw04cosgo",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 43,
+  "text": "Replace/Delete",
+  "tooltip": "Select an item to Replace or Delete first",
+  "topRow": 2,
+  "topRowBeforeCollapse": 2,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "6u88qi75s7",
+  "widgetName": "btnListsReplace"
+}

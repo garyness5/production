@@ -1,0 +1,10 @@
+select
+    id,
+    name
+from public.evt_items
+where client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and coalesce(deleted, false) = false
+
+order by lower(name);

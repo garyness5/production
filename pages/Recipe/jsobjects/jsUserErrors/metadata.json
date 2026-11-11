@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_5cf9151c-c2f6-46bc-b611-abb3859d5d2c",
+  "id": "Recipe_jsUserErrors",
+  "unpublishedCollection": {
+    "name": "jsUserErrors",
+    "pageId": "Recipe",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "mappings",
+        "value": "[{\n  match: \"RECIPE_CIRCULAR_REFERENCE\",\n  message: \"This Recipe is already used in one of the selected sub-recipes. \" + \"Saving it would create a loop where Recipes contain each other. \" + \"Please remove the conflicting sub-recipe and try again.\"\n}, {\n  match: \"action execution timed out\",\n  message: \"Savveyra could not confirm whether the action was completed. \" + \"This may be caused by an interrupted internet connection \" + \"or a temporary server problem. \" + \"Please check your connection before trying again.\"\n}, {\n  match: \"network request failed\",\n  message: \"Unable to connect to Savveyra. \" + \"Please check your internet connection and try again.\"\n}, {\n  match: \"failed to fetch\",\n  message: \"Unable to connect to Savveyra. \" + \"Please check your internet connection and try again.\"\n}, {\n  match: \"networkerror\",\n  message: \"A connection problem occurred. \" + \"Please check your internet connection and try again.\"\n}, {\n  match: \"jwt expired\",\n  message: \"Your session has expired. \" + \"Please sign in again.\"\n}, {\n  match: \"invalid jwt\",\n  message: \"Your session is no longer valid. \" + \"Please sign in again.\"\n}]"
+      }
+    ]
+  }
+}

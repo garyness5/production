@@ -1,0 +1,7 @@
+select id
+from public.contacts
+where client_id = {{ appsmith.store.current_client_id }}::uuid
+  and lower(trim(contact_name)) =
+      lower(trim({{ inpContactName.text }}::text))
+  and coalesce(deleted, false) = false
+limit 1;

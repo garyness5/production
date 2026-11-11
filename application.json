@@ -1,0 +1,96 @@
+{
+  "appIsExample": false,
+  "appLayout": {
+    "type": "DESKTOP"
+  },
+  "applicationVersion": 2,
+  "collapseInvisibleWidgets": true,
+  "color": "#F3F1C7",
+  "evaluationVersion": 2,
+  "icon": "bicycle",
+  "pages": [
+    {
+      "id": "Login",
+      "isDefault": true
+    },
+    {
+      "id": "Lists",
+      "isDefault": false
+    },
+    {
+      "id": "Ingredients",
+      "isDefault": false
+    },
+    {
+      "id": "RecipeList",
+      "isDefault": false
+    },
+    {
+      "id": "Recipe",
+      "isDefault": false
+    },
+    {
+      "id": "DishList",
+      "isDefault": false
+    },
+    {
+      "id": "Dish",
+      "isDefault": false
+    },
+    {
+      "id": "MenuList",
+      "isDefault": false
+    },
+    {
+      "id": "Menu",
+      "isDefault": false
+    },
+    {
+      "id": "EventList",
+      "isDefault": false
+    },
+    {
+      "id": "Events",
+      "isDefault": false
+    },
+    {
+      "id": "QuoteList",
+      "isDefault": false
+    },
+    {
+      "id": "Quote",
+      "isDefault": false
+    },
+    {
+      "id": "Groceries",
+      "isDefault": false
+    },
+    {
+      "id": "Details",
+      "isDefault": false
+    },
+    {
+      "id": "Order",
+      "isDefault": false
+    },
+    {
+      "id": "Print",
+      "isDefault": false
+    },
+    {
+      "id": "CustomerList",
+      "isDefault": false
+    },
+    {
+      "id": "VenueList",
+      "isDefault": false
+    },
+    {
+      "id": "ContactList",
+      "isDefault": false
+    }
+  ],
+  "unpublishedAppLayout": {
+    "type": "DESKTOP"
+  }
+}

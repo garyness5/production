@@ -1,0 +1,8 @@
+SELECT hli.id, hli.name
+FROM helper_list_items hli
+JOIN helper_lists hl
+  ON hl.id = hli.list_id
+WHERE hl.list_code = 'packaging'
+  AND hli.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  AND hli.active = true
+ORDER BY hli.name;

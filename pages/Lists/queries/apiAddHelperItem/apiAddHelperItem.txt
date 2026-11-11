@@ -1,0 +1,5 @@
+{
+	"operation": "add_my_helper_item",
+	"list_id": "{{this.params.list_id || selListsType.selectedOptionValue}}",
+	"name": "{{this.params.name || inpPLAddName.text.trim()}}"
+}

@@ -1,0 +1,6 @@
+SELECT *
+FROM public.get_quo_event_details(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.quotationEventId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

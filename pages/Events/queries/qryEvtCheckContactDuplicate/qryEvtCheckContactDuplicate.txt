@@ -1,0 +1,20 @@
+select
+    c.id,
+    c.contact_name,
+    c.title,
+    c.phone,
+    c.mobile,
+    c.email
+from public.contacts c
+where c.client_id =
+      {{ appsmith.store.current_client_id }}::uuid
+
+  and public.normalize_name_for_unique(c.contact_name) =
+      public.normalize_name_for_unique(
+          {{ (inpEvtContactName.text || "").trim() }}::text
+      )
+
+  and coalesce(c.deleted, false) = false
+
+order by c.id
+limit 1;

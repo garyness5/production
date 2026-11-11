@@ -1,0 +1,5 @@
+select *
+from public.vw_quo_events
+where quote_event_id = {{ appsmith.store.selectedQuoteEventId || 0 }}
+  and client_id = '1315144c-801a-4371-aae4-52f2a78873d1'::uuid
+limit 1;

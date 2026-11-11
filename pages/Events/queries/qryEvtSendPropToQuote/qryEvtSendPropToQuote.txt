@@ -1,0 +1,6 @@
+select *
+from public.send_proposal_to_quote(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.current_proposal_id || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

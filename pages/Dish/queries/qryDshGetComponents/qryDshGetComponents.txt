@@ -1,0 +1,11 @@
+select c.*
+from public.vw_dsh_components c
+where c.dish_id = {{ Number(appsmith.store.current_dish_id || 0) }}
+  and exists (
+		select 1
+		from public.dsh_items d
+		where d.id = c.dish_id
+		and d.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+		and coalesce(d.deleted, false) = false
+	)
+order by c.line_no;

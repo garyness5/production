@@ -1,0 +1,7 @@
+select *
+from public.set_contact_deleted(
+	{{ appsmith.user.email }}::text,
+	{{ Number(tblContacts.selectedRow?.id || 0) }}::bigint,
+	{{ appsmith.store.current_client_id }}::uuid,
+	true
+);

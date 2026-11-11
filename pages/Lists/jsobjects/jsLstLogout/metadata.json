@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6ad02e5d7089041c6d575f1b_d2b709c4-5323-40cc-bb0b-86ba6416adb4",
+  "id": "Lists_jsLstLogout",
+  "unpublishedCollection": {
+    "name": "jsLstLogout",
+    "pageId": "Lists",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "busy",
+        "value": "false"
+      }
+    ]
+  }
+}

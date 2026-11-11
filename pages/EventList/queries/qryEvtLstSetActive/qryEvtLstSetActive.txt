@@ -1,0 +1,24 @@
+select *
+from public.set_event_active_from_list(
+	'{{ appsmith.user.email }}'::text,
+
+	{{
+	Number(
+		appsmith.store.evt_list_active_action?.id || 0
+	)
+	}},
+
+	'{{ appsmith.store.current_client_id }}'::uuid,
+
+	{{
+	appsmith.store.evt_list_active_action?.active === true
+	? 'true'
+	: 'false'
+	}}::boolean,
+
+	{{
+	appsmith.store.evt_list_active_confirmed === true
+	? 'true'
+	: 'false'
+	}}::boolean
+);

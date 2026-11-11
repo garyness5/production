@@ -1,0 +1,31 @@
+select *
+from public.save_contact_master(
+	{{ appsmith.user.email }}::text,
+
+	null::bigint,
+
+	{{ appsmith.store.current_client_id }}::uuid,
+
+	{{ (inpEvtContactName.text ?? "").trim() }}::text,
+	{{ (inpEvtContactTitle.text ?? "").trim() }}::text,
+	{{ (inpEvtContactPhone.text ?? "").trim() }}::text,
+	{{ (inpEvtContactMobile.text ?? "").trim() }}::text,
+	{{ (inpEvtContactEmail.text ?? "").trim() }}::text,
+	{{ (inpEvtContactNotes.text ?? "").trim() }}::text,
+
+	true::boolean,
+
+	{{
+	appsmith.store.evt_contact_context === "customer"
+	&& Number(selEvtCustomer.selectedOptionValue || 0) > 0
+	? `{${Number(selEvtCustomer.selectedOptionValue)}}`
+	: "{}"
+	}}::bigint[],
+
+	{{
+	appsmith.store.evt_contact_context === "venue"
+	&& Number(selEvtVenue.selectedOptionValue || 0) > 0
+	? `{${Number(selEvtVenue.selectedOptionValue)}}`
+	: "{}"
+	}}::bigint[]
+);

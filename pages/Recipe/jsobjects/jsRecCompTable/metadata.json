@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_70a921a8-f7bc-46c2-b0eb-962756259c50",
+  "id": "Recipe_jsRecCompTable",
+  "unpublishedCollection": {
+    "name": "jsRecCompTable",
+    "pageId": "Recipe",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "minRows",
+        "value": "10"
+      }
+    ]
+  }
+}

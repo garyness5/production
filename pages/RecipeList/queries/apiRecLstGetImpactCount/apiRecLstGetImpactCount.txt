@@ -1,0 +1,6 @@
+{{
+{
+	operation: "get_my_recipe_impact",
+	recipe_id: this.params.recipe_id
+}
+}}

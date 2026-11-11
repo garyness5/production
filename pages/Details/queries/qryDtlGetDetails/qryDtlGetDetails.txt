@@ -1,0 +1,29 @@
+select
+    id,
+    gro_event_id,
+    event_id,
+    proposal_id,
+    line_no,
+
+    event_ref,
+    event_datetime,
+    event_datetime_display,
+    event_name,
+
+    ingredient_id,
+    ingredient_name,
+    category_name,
+
+    required_qty,
+    required_unit_id,
+    required_unit
+
+from public.gro_details
+
+where client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+order by
+    event_datetime nulls last,
+    lower(event_name),
+    line_no;

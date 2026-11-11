@@ -1,0 +1,57 @@
+select
+    ge.id as gro_event_id,
+    ge.event_id,
+    ge.proposal_id as current_proposal_id,
+
+    pi.proposal_number as current_proposal_number,
+
+    count(gd.id) as detail_rows,
+
+    count(gd.id) > 0 as has_generated_details,
+
+    exists (
+			select 1
+			from public.gro_order go
+			where go.client_id =
+			'{{ appsmith.store.current_client_id }}'::uuid
+			and (
+				go.buy_qty is not null
+				or go.packs_to_order is not null
+			)
+		) as has_manual_values,
+
+    exists (
+			select 1
+			from public.gro_events ge2
+			where ge2.client_id = ge.client_id
+			and ge2.id <> ge.id
+			and ge2.to_order = true
+			and exists (
+				select 1
+				from public.gro_details gd2
+				where gd2.client_id = ge2.client_id
+				and gd2.gro_event_id = ge2.id
+			)
+		) as has_surviving_generated_sources
+
+from public.gro_events ge
+
+left join public.prop_items pi
+    on pi.id = ge.proposal_id
+   and pi.client_id = ge.client_id
+
+left join public.gro_details gd
+    on gd.gro_event_id = ge.id
+   and gd.client_id = ge.client_id
+
+where ge.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and ge.event_id =
+      {{ Number(appsmith.store.current_event_id || 0) }}
+
+group by
+    ge.id,
+    ge.event_id,
+    ge.proposal_id,
+    pi.proposal_number;

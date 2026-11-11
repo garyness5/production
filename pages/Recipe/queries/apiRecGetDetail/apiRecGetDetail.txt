@@ -1,0 +1,6 @@
+{{
+{
+	operation: "my_recipe_detail",
+	recipe_id: Number(appsmith.store.current_recipe_id || 0)
+}
+}}

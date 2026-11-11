@@ -1,0 +1,16 @@
+insert into public.quo_event_state (
+    client_id,
+    event_id,
+    is_active,
+    updated_at
+)
+values (
+    '{{ appsmith.store.current_client_id }}'::uuid,
+    {{ this.params.eventId }},
+    {{ this.params.isActive }},
+    now()
+)
+on conflict (client_id, event_id)
+do update set
+    is_active = excluded.is_active,
+    updated_at = excluded.updated_at;

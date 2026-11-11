@@ -1,0 +1,28 @@
+select *
+from public.save_customer_master(
+	{{ appsmith.user.email }}::text,
+
+	null::bigint,
+
+	{{ appsmith.store.current_client_id }}::uuid,
+
+	{{ (inpEvtCustomerName.text ?? "").trim() }}::text,
+
+	''::text,
+
+	{{ inpEvtCustomerAddress.text ?? "" }}::text,
+
+	{{ (inpEvtCustomerPhone.text ?? "").trim() }}::text,
+
+	{{ (inpEvtCustomerMobile.text ?? "").trim() }}::text,
+
+	{{ (inpEvtCustomerEmail.text ?? "").trim() }}::text,
+
+	''::text,
+
+	{{ inpEvtCustomerNotes.text ?? "" }}::text,
+
+	true::boolean,
+
+	'{}'::bigint[]
+);

@@ -1,0 +1,5 @@
+select public.delete_menu(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(tblMnuList.selectedRow?.id || 0) }},
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

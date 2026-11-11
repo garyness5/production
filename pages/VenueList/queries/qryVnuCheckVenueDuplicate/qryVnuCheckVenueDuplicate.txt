@@ -1,0 +1,14 @@
+select id
+from public.venues
+where client_id =
+      {{ appsmith.store.current_client_id }}::uuid
+
+  and lower(trim(venue_name)) =
+      lower(trim({{ inpVenueName.text }}::text))
+
+  and id <>
+      {{ Number(appsmith.store.current_venue_id || 0) }}::bigint
+
+  and coalesce(deleted, false) = false
+
+limit 1;

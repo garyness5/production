@@ -1,0 +1,33 @@
+select
+    gro_event_id,
+    event_id,
+    proposal_id,
+
+    event_ref,
+    event_datetime,
+    event_datetime_display,
+    event_name,
+    total_guests,
+
+    to_order,
+    notes,
+
+    event_status,
+    event_active,
+    event_deleted,
+
+    proposal_no,
+    proposal_number,
+    proposal_status,
+    proposal_active,
+    proposal_deleted,
+    proposal_hidden
+
+from public.vw_gro_events
+
+where client_id =
+    '{{ appsmith.store.current_client_id }}'::uuid
+
+order by
+    event_datetime nulls last,
+    lower(event_name);

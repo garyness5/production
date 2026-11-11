@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6ad02e5d7089041c6d575f1b_cd203baa-9e1d-478e-a2f3-4ac4acc765c5",
+  "id": "RecipeList_jsRecLstLogout",
+  "unpublishedCollection": {
+    "name": "jsRecLstLogout",
+    "pageId": "RecipeList",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "busy",
+        "value": "false"
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+select *
+from public.update_event_deposits_bulk(
+  {{ Number(appsmith.store.selectedQuotationEventId || 0) }},
+
+  '{{
+    JSON.stringify(
+      (tblQuoFinDeposits.updatedRows || []).map(r => {
+        const row = {
+          ...r.allFields,
+          ...r.updatedFields
+        };
+
+        return {
+          deposit_id: row.deposit_id,
+
+          amount_due:
+            row.amount_due === "" ||
+            row.amount_due === null ||
+            row.amount_due === undefined
+              ? null
+              : Number(row.amount_due),
+
+          due_date:
+            row.due_date
+              ? moment(row.due_date).format("YYYY-MM-DD")
+              : null,
+
+          amount_received:
+            row.amount_received === "" ||
+            row.amount_received === null ||
+            row.amount_received === undefined
+              ? null
+              : Number(row.amount_received),
+
+          received_date:
+            row.received_date
+              ? moment(row.received_date).format("YYYY-MM-DD")
+              : null
+        };
+      })
+    ).replaceAll("'", "''")
+  }}'::jsonb
+);

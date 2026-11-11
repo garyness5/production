@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a0a1bde3214f344228346e7_3674ed7d-8c56-49a3-8a13-963e0e505c8d",
+  "id": "Recipe_jsRecSave",
+  "unpublishedCollection": {
+    "name": "jsRecSave",
+    "pageId": "Recipe",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "pendingAction",
+        "value": "null"
+      }
+    ]
+  }
+}

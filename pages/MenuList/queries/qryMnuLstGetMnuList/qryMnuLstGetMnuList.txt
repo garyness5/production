@@ -1,0 +1,15 @@
+select
+  id,
+  name,
+  category_id,
+  category_name,
+  yield_qty,
+  total_cost,
+  cost_per_unit,
+  active,
+  diet_tag_names,
+  deleted
+from public.vw_mnu_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(deleted, false) = false
+order by lower(name), id;

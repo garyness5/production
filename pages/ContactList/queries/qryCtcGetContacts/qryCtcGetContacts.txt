@@ -1,0 +1,80 @@
+select
+  id,
+  contact_name,
+  title,
+  phone,
+  mobile,
+  email,
+  notes,
+  active,
+  customer_ids,
+  venue_ids,
+  customer_names,
+  venue_names,
+
+  case
+    when cardinality(customer_ids) > 0
+     and cardinality(venue_ids) > 0
+      then 'Customer / Venue'
+
+    when cardinality(customer_ids) > 0
+      then 'Customer'
+
+    when cardinality(venue_ids) > 0
+      then 'Venue'
+
+    else 'Unassigned'
+  end as contact_type,
+
+  array_to_string(customer_names, ', ') as customer_list,
+  array_to_string(venue_names, ', ') as venue_list,
+
+  case
+    when cardinality(customer_ids) > 0
+     and cardinality(venue_ids) > 0
+      then concat(
+        array_to_string(customer_names, ', '),
+        ' / ',
+        array_to_string(venue_names, ', ')
+      )
+
+    when cardinality(customer_ids) > 0
+      then array_to_string(customer_names, ', ')
+
+    when cardinality(venue_ids) > 0
+      then array_to_string(venue_names, ', ')
+
+    else ''
+  end as owner_list
+
+from public.vw_contacts
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(deleted, false) = false
+
+  and (
+    '{{ selContactFilter.selectedOptionValue || "all" }}' = 'all'
+    or (
+      '{{ selContactFilter.selectedOptionValue || "all" }}' = 'active'
+      and active = true
+    )
+    or (
+      '{{ selContactFilter.selectedOptionValue || "all" }}' = 'inactive'
+      and active = false
+    )
+  )
+
+  and (
+    '{{ (inpContactSearch.text || "").trim().replaceAll("'", "''") }}' = ''
+    or contact_name ilike '%' ||
+      '{{ (inpContactSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+    or coalesce(title, '') ilike '%' ||
+      '{{ (inpContactSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+    or coalesce(email, '') ilike '%' ||
+      '{{ (inpContactSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+    or array_to_string(customer_names, ', ') ilike '%' ||
+      '{{ (inpContactSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+    or array_to_string(venue_names, ', ') ilike '%' ||
+      '{{ (inpContactSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+  )
+
+order by lower(contact_name);

@@ -1,0 +1,55 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 64,
+  "dynamicBindingPathList": [
+    {
+      "key": "truncateButtonColor"
+    },
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "0.875rem",
+  "fontStyle": "",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "h29kmo3jn9",
+  "leftColumn": 4,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 42,
+  "mobileLeftColumn": 4,
+  "mobileRightColumn": 20,
+  "mobileTopRow": 38,
+  "needsErrorInfo": false,
+  "originalBottomRow": 64,
+  "originalTopRow": 53,
+  "overflow": "NONE",
+  "parentColumnSpace": 6.9375,
+  "parentId": "7hgaofawbt",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 25,
+  "shouldTruncate": false,
+  "text": "{{\n`This will impact\n    Ingredients: ${jsPicklistRules.ingredientCount()}\n    Recipes: ${jsPicklistRules.recipeCount()}\n    Dishes: ${jsPicklistRules.dishCount()}\n    Menus: ${jsPicklistRules.menuCount()}\n    Events: ${jsPicklistRules.eventCount()}`\n}}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 53,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "htaqu5yzxu",
+  "widgetName": "txtPLReplaceCount"
+}

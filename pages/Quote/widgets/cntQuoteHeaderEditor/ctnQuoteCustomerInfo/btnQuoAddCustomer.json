@@ -1,0 +1,66 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 20,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "SECONDARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "iconName"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "iconName"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "iconAlign": "left",
+  "iconName": "{{\n  qryQuoGetSelectedQuote.data?.[0]?.customer_id\n    ? \"info-sign\"\n    : \"plus\"\n}}",
+  "isDefaultClickDisabled": true,
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": true,
+  "key": "brlx8potul",
+  "leftColumn": 56,
+  "minWidth": 120,
+  "mobileBottomRow": 27,
+  "mobileLeftColumn": 20,
+  "mobileRightColumn": 36,
+  "mobileTopRow": 23,
+  "needsErrorInfo": false,
+  "onClick": "{{\n  storeValue(\n    \"quo_customer_id\",\n    Number(qryQuoGetSelectedQuote.data?.[0]?.customer_id || 0) || null\n  )\n    .then(() =>\n      storeValue(\n        \"quo_customer_mode\",\n        qryQuoGetSelectedQuote.data?.[0]?.customer_id ? \"edit\" : \"add\"\n      )\n    )\n    .then(() => qryQuoGetCustomers.run())\n    .then(() => resetWidget(\"mdlQuoCustomer\", true))\n    .then(() => showModal(\"mdlQuoCustomer\"))\n}}",
+  "originalBottomRow": 20,
+  "originalTopRow": 16,
+  "parentColumnSpace": 6.021484375,
+  "parentId": "pfw5ch02xm",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 62,
+  "text": "",
+  "tooltip": "",
+  "topRow": 16,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "4xghyas16i",
+  "widgetName": "btnQuoAddCustomer"
+}

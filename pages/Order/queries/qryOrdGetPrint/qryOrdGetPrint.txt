@@ -1,0 +1,14 @@
+select
+  id,
+  line_no,
+  supplier_name,
+  ingredient_code,
+  ingredient_name,
+  buy_qty,
+  buy_unit,
+  packs_to_order,
+  packaging_name,
+  purchased
+from public.gro_print
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+order by line_no;

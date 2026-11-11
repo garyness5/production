@@ -1,0 +1,11 @@
+{
+	"operation": "my_import_commit",
+	"body": {
+		"supplier_id": {{ appsmith.store.impReviewSnapshot?.supplier_id }},
+		"no_supplier": {{ appsmith.store.impReviewSnapshot?.supplier_id === "__NO_SUPPLIER__" }},
+		"header_signature": {{ appsmith.store.impReviewSnapshot?.header_signature || "" }},
+		"header_mappings": {{ appsmith.store.impReviewSnapshot?.header_mappings || [] }},
+		"value_mappings": {{ appsmith.store.impReviewSnapshot?.value_mappings || [] }},
+		"rows": {{ appsmith.store.impReviewSnapshot?.rows || [] }}
+	}
+}

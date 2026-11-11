@@ -1,0 +1,8 @@
+select ddt.helper_list_item_id::text as value
+from public.dsh_diet_tags ddt
+join public.dsh_items d
+  on d.id = ddt.dish_id
+where ddt.dish_id = {{ Number(appsmith.store.current_dish_id || 0) }}
+  and d.client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and coalesce(d.deleted, false) = false
+order by ddt.helper_list_item_id;

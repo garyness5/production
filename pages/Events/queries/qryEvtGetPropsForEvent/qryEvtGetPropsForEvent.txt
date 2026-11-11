@@ -1,0 +1,52 @@
+select
+    -- Visible tblPropForEvent columns
+    v.proposal_number,
+    v.proposal_status,
+    v.active,
+    v.updated_at,
+
+    -- Independent workflow facts
+    coalesce(pi.accepted, false) as accepted,
+    coalesce(pi.ordered, false) as ordered,
+
+    -- Identity / support columns
+    v.id,
+    v.event_id,
+    v.proposal_no,
+    v.proposal_title,
+    v.event_name,
+    v.event_ref,
+    v.event_date,
+    v.total_guests,
+    v.sent_at,
+    v.created_at,
+    v.closed_at,
+    v.was_issued,
+    v.is_editable,
+    v.is_closed,
+    v.proposal_sequence_number
+
+from public.vw_prop_selector v
+
+join public.prop_items pi
+    on pi.id = v.id
+
+where v.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+
+  and v.event_id =
+      {{ Number(appsmith.store.current_event_id || 0) }}
+
+  and coalesce(pi.hidden, false) = false
+
+order by
+    case
+        when coalesce(pi.ordered, false) = true then 0
+        when coalesce(pi.accepted, false) = true then 1
+        when v.sent_at is not null then 2
+        else 3
+    end,
+
+    v.updated_at desc nulls last,
+
+    v.id desc;

@@ -1,0 +1,4 @@
+select
+    current_user,
+    session_user,
+    current_setting('role', true) as current_role;

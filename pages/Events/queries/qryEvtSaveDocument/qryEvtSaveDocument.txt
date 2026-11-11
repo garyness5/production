@@ -1,0 +1,20 @@
+select *
+from public.save_event_document(
+	'{{ appsmith.user.email }}'::text,
+
+	{{ Number(appsmith.store.event_document_save_request?.event_id || 0) }},
+
+	'{{ appsmith.store.current_client_id }}'::uuid,
+
+	'{{
+	JSON.stringify(
+		appsmith.store.event_document_save_request?.header || {}
+	).replaceAll("'", "''")
+	}}'::jsonb,
+
+	'{{
+	JSON.stringify(
+		appsmith.store.event_document_save_request?.proposals || []
+	).replaceAll("'", "''")
+	}}'::jsonb
+);

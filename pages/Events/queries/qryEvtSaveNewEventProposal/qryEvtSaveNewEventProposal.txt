@@ -1,0 +1,35 @@
+select *
+from public.save_new_event_proposal_secure(
+	'{{ appsmith.user.email }}'::text,
+
+	{{ Number(appsmith.store.current_event_id || 0) }}::bigint,
+
+	'{{ appsmith.store.current_client_id }}'::uuid,
+
+	'{{
+	JSON.stringify(
+		appsmith.store.proposal_save_request?.menus || []
+	).replaceAll("'", "''")
+	}}'::jsonb,
+
+	{{
+	Number(
+		appsmith.store.proposal_save_request
+		?.source_proposal_id || 0
+	) > 0
+
+	? Number(
+		appsmith.store.proposal_save_request
+		.source_proposal_id
+	)
+
+	: null
+	}},
+
+	{{
+	appsmith.store.proposal_save_request
+	?.active !== false
+	? 'true'
+	: 'false'
+	}}::boolean
+);

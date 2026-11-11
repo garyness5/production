@@ -1,0 +1,62 @@
+select
+  'ingredient'::text as item_type,
+  id,
+  name,
+  category_name,
+  yield_unit_id as default_unit_id,
+  yield_unit as default_unit,
+  unit_type,
+  wastage_percent,
+  allergen_names,
+  diet_tag_names,
+  price_per_unit,
+  cost_per_base_unit,
+  factor_to_base
+from public.vw_ing_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and active = true
+  and coalesce(deleted, false) = false
+
+union all
+
+select
+  'recipe'::text as item_type,
+  id,
+  name,
+  category_name,
+  yield_unit_id as default_unit_id,
+  yield_unit as default_unit,
+  yield_unit_type as unit_type,
+  0::numeric as wastage_percent,
+  derived_allergens as allergen_names,
+  diet_tag_names,
+  cost_per_unit as price_per_unit,
+  cost_per_base_unit,
+  null::numeric as factor_to_base
+from public.vw_rec_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and active = true
+  and coalesce(deleted, false) = false
+
+union all
+
+select
+  'dish'::text as item_type,
+  id,
+  name,
+  category_name,
+  null::bigint as default_unit_id,
+  null::text as default_unit,
+  null::text as unit_type,
+  0::numeric as wastage_percent,
+  derived_allergens as allergen_names,
+  diet_tag_names,
+  cost_per_unit as price_per_unit,
+  null::numeric as cost_per_base_unit,
+  null::numeric as factor_to_base
+from public.vw_dsh_items
+where client_id = '{{ appsmith.store.current_client_id }}'::uuid
+  and active = true
+  and coalesce(deleted, false) = false
+
+order by item_type, name;

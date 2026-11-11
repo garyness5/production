@@ -1,0 +1,3 @@
+{
+	"operation": "my_import_lookups"
+}

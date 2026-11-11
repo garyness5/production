@@ -1,0 +1,6 @@
+SELECT *
+FROM public.get_quotes_for_inbox(
+	'{{ appsmith.user.email }}'::text,
+	{{ Number(appsmith.store.quotationInboxId || 0) }}::bigint,
+	'{{ appsmith.store.current_client_id }}'::uuid
+);

@@ -1,0 +1,93 @@
+select
+  c.id,
+  c.customer_name,
+  c.company,
+  c.address,
+  c.phone,
+  c.mobile,
+  c.email,
+  c.website,
+  c.notes,
+  c.active,
+
+  coalesce(
+		string_agg(
+			distinct ct.contact_name,
+			', '
+			order by ct.contact_name
+		),
+		''
+	) as contact_names
+
+from public.vw_customers c
+
+left join public.customer_contact_links ccl
+  on ccl.customer_id = c.id
+ and ccl.client_id = c.client_id
+ and ccl.active = true
+
+left join public.contacts ct
+  on ct.id = ccl.contact_id
+ and ct.client_id = c.client_id
+ and coalesce(ct.deleted, false) = false
+
+where c.client_id =
+  '{{ appsmith.store.current_client_id }}'::uuid
+
+  and coalesce(c.deleted, false) = false
+
+  and (
+		'{{ selCustomerFilter.selectedOptionValue || "all" }}' = 'all'
+		or (
+			'{{ selCustomerFilter.selectedOptionValue || "all" }}' = 'active'
+			and c.active = true
+		)
+		or (
+			'{{ selCustomerFilter.selectedOptionValue || "all" }}' = 'inactive'
+			and c.active = false
+		)
+	)
+
+  and (
+		'{{ (inpCustomerSearch.text || "").trim().replaceAll("'", "''") }}' = ''
+
+		or c.customer_name ilike '%' ||
+		'{{ (inpCustomerSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+
+		or coalesce(c.company, '') ilike '%' ||
+		'{{ (inpCustomerSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+
+		or coalesce(c.address, '') ilike '%' ||
+		'{{ (inpCustomerSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+
+		or coalesce(c.email, '') ilike '%' ||
+		'{{ (inpCustomerSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+
+		or exists (
+			select 1
+			from public.customer_contact_links search_link
+			join public.contacts search_contact
+			on search_contact.id = search_link.contact_id
+			and search_contact.client_id = search_link.client_id
+			and coalesce(search_contact.deleted, false) = false
+			where search_link.customer_id = c.id
+			and search_link.client_id = c.client_id
+			and search_link.active = true
+			and search_contact.contact_name ilike '%' ||
+			'{{ (inpCustomerSearch.text || "").trim().replaceAll("'", "''") }}' || '%'
+		)
+	)
+
+group by
+  c.id,
+  c.customer_name,
+  c.company,
+  c.address,
+  c.phone,
+  c.mobile,
+  c.email,
+  c.website,
+  c.notes,
+  c.active
+
+order by lower(c.customer_name);

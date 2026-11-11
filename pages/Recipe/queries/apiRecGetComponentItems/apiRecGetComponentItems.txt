@@ -1,0 +1,5 @@
+{{
+{
+	operation: "my_recipe_component_items"
+}
+}}

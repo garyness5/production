@@ -1,0 +1,6 @@
+select
+  coalesce(cardinality(customer_ids), 0)::bigint as customer_count,
+  coalesce(cardinality(venue_ids), 0)::bigint as venue_count
+from public.vw_contacts
+where id = {{ Number(tblContacts.selectedRow.id || 0) }}::bigint
+  and client_id = {{ appsmith.store.current_client_id }}::uuid;

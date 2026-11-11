@@ -1,0 +1,6 @@
+{{
+{
+	operation: "get_my_ingredient_impact",
+	ingredient_id: this.params.ingredient_id
+}
+}}

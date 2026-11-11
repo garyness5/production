@@ -1,0 +1,6 @@
+select *
+from public.get_venue_delete_impact(
+	{{ appsmith.user.email }}::text,
+	{{ Number(tblVenues.selectedRow?.id || 0) }}::bigint,
+	{{ appsmith.store.current_client_id }}::uuid
+);

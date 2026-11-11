@@ -1,0 +1,13 @@
+select *
+from public.apply_gro_queue_changes(
+	{{ appsmith.user.email }}::text,
+	'{{ appsmith.store.current_client_id }}'::uuid,
+
+	'{{ JSON.stringify(
+		appsmith.store.gro_pending_to_order_changes || []
+	).replaceAll("'", "''") }}'::jsonb,
+
+	'{{ JSON.stringify(
+		appsmith.store.gro_pending_remove_proposal_ids || []
+	).replaceAll("'", "''") }}'::jsonb
+);

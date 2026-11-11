@@ -1,0 +1,7 @@
+select *
+from public.set_customer_status(
+	{{ appsmith.user.email }}::text,
+	{{ Number(this.params.customer_id || 0) }}::bigint,
+	{{ appsmith.store.current_client_id }}::uuid,
+	{{ this.params.active }}::boolean
+);

@@ -1,0 +1,12 @@
+select
+    hli.name as label,
+    hli.name as value
+from public.helper_list_items hli
+join public.helper_lists hl
+  on hl.id = hli.list_id
+where hl.list_code = 'service_style'
+  and hli.client_id =
+      '{{ appsmith.store.current_client_id }}'::uuid
+  and hli.active = true
+  and coalesce(hli.deleted, false) = false
+order by lower(hli.name);

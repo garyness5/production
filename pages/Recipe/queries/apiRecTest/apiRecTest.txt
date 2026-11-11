@@ -1,0 +1,9 @@
+{{
+  {
+    operation: "my_import_saved_mappings",
+    body: {
+      supplier_id: 1,
+      header_signature: "security-isolation-test"
+    }
+  }
+}}

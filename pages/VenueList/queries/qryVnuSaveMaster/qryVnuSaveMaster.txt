@@ -1,0 +1,25 @@
+select *
+from public.save_venue_master(
+	{{ appsmith.user.email }}::text,
+	nullif(
+		{{ Number(appsmith.store.current_venue_id || 0) }}::bigint,
+		0
+	),
+
+	{{ appsmith.store.current_client_id }}::uuid,
+
+	{{ (inpVenueName.text ?? "").trim() }}::text,
+	{{ (inpVenueAddress.text ?? "").trim() }}::text,
+	{{ (inpVenuePhone.text ?? "").trim() }}::text,
+	{{ (inpVenueMobile.text ?? "").trim() }}::text,
+	{{ (inpVenueEmail.text ?? "").trim() }}::text,
+	{{ (inpVenueNotes.text ?? "").trim() }}::text,
+
+	{{ chkVenueActive.isChecked }}::boolean,
+
+	{{
+	(msVenueContacts.selectedOptionValues || []).length
+	? `{${msVenueContacts.selectedOptionValues.map(Number).join(",")}}`
+	: "{}"
+	}}::bigint[]
+);

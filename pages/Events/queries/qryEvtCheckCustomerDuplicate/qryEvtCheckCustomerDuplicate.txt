@@ -1,0 +1,15 @@
+select
+    c.id,
+    c.customer_name
+from public.customers c
+where c.client_id =
+      {{ appsmith.store.current_client_id }}::uuid
+
+  and lower(trim(c.customer_name)) =
+      lower(trim(
+          {{ (inpEvtCustomerName.text || "").trim() }}::text
+      ))
+
+  and coalesce(c.deleted, false) = false
+
+limit 1;

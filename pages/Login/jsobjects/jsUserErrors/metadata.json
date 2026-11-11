@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6ad02e5d7089041c6d575f1b_3ceecf28-b312-48e1-902f-3b687255c284",
+  "id": "Login_jsUserErrors",
+  "unpublishedCollection": {
+    "name": "jsUserErrors",
+    "pageId": "Login",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "mappings",
+        "value": "[{\n  match: \"invalid login credentials\",\n  message: \"There is an error in the email and/or password you entered. Please try again.\"\n}, {\n  match: \"invalid email or password\",\n  message: \"There is an error in the email and/or password you entered. Please try again.\"\n}, {\n  match: \"email not confirmed\",\n  message: \"Please confirm your email address before logging in.\"\n}, {\n  match: \"too many requests\",\n  message: \"Too many login attempts. Please wait a few minutes and try again.\"\n}]"
+      }
+    ]
+  }
+}
