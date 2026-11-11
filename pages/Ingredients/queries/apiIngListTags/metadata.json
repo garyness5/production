@@ -1,6 +1,6 @@
 {
   "gitSyncId": "6ad02e5d7089041c6d575f1b_696c64ba-5130-4417-b798-a9179727f4af",
-  "id": "Ingredients_apiIngGetClassifications",
+  "id": "Ingredients_apiIngListTags",
   "pluginId": "restapi-plugin",
   "pluginType": "API",
   "unpublishedAction": {
@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{{\n{\n\toperation: \"my_ingredient_classifications\",\n\tingredient_id: this.params.ingredient_id\n}\n}}",
+      "body": "{{\n{\n\toperation: \"list_ingredient_tags\"\n}\n}}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {
@@ -50,7 +50,7 @@
         "key": "body"
       }
     ],
-    "name": "apiIngGetClassifications",
+    "name": "apiIngListTags",
     "pageId": "Ingredients",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": true

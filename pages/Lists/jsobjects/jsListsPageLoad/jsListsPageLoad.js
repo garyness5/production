@@ -6,31 +6,25 @@ export default {
 			const initialized = await jsAppInit.init();
 
 			if (!initialized) {
-				// Keep unsaved Import work for same-user reauthentication.
-				// The page remains unavailable until authentication succeeds.
 				return false;
 			}
 
-			const results = await Promise.all([
-				apiGetHelperLists.run(),
-				apiImpGetSuppliers.run(),
-				apiImpGetLookups.run()
-			]);
+			const listsResponse = await apiGetHelperLists.run();
 
-			if (results.some(r => r?.authenticated !== true)) {
-				throw new Error("Lists data request failed.");
+			if (
+				listsResponse?.ok !== true ||
+				!Array.isArray(listsResponse.lists)
+			) {
+				throw new Error("Helper Lists could not be loaded.");
 			}
 
-			const listId = selListsType.selectedOptionValue;
+			const itemsResponse = await apiGetHelperItems.run();
 
-			if (listId) {
-				const items = await apiGetHelperItems.run({
-					list_id: listId
-				});
-
-				if (items?.authenticated !== true) {
-					throw new Error("Helper items request failed.");
-				}
+			if (
+				itemsResponse?.ok !== true ||
+				!Array.isArray(itemsResponse.items)
+			) {
+				throw new Error("Helper items could not be loaded.");
 			}
 
 			await storeValue("listsPageReady", true);
@@ -39,7 +33,7 @@ export default {
 		} catch (error) {
 			await storeValue("listsPageReady", false);
 			console.error("Lists initialization failed:", error);
-			showAlert("Unable to load Lists data.", "error");
+			jsUserErrors.show(error, "Unable to load Lists data.");
 			return false;
 		}
 	},

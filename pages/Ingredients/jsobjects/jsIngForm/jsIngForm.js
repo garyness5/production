@@ -31,6 +31,7 @@ export default {
 	// OPEN EDIT
 	// ============================================================
 
+
 	async openEditFromIngredients(row = null) {
 		const id = Number(
 			row?.id ??
@@ -38,6 +39,7 @@ export default {
 			tblIngList.selectedRow?.id ??
 			0
 		);
+
 		if (!id) {
 			showAlert("Select an ingredient to edit.", "warning");
 			return false;
@@ -60,22 +62,41 @@ export default {
 		}
 
 		try {
-			const response = await apiIngGetClassifications.run({
-				ingredient_id: id
-			});
+			const response = await apiIngListTags.run();
 
-			if (!response?.authenticated ||
-					!Array.isArray(response.classifications)) {
-				throw new Error("Ingredient classifications could not be loaded.");
+			if (
+				response?.ok !== true ||
+				!Array.isArray(response.tags)
+			) {
+				throw new Error("Ingredient tags could not be loaded.");
 			}
 
-			await storeValue("IngForm_context", this.CONTEXT_EDIT_INGREDIENTS);
+			const ingredientTags = response.tags.filter(
+				tag => Number(tag.ingredient_id) === id
+			);
+
+			await storeValue(
+				"IngForm_context",
+				this.CONTEXT_EDIT_INGREDIENTS
+			);
 			await storeValue("IngForm_mode", "edit");
 			await storeValue("IngForm_edit_id", id);
 			await storeValue("IngForm_edit_row", editRow);
 
-			await removeValue("IngForm_duplicate_allergens");
-			await removeValue("IngForm_duplicate_diet_tags");
+			await storeValue(
+				"IngForm_duplicate_allergens",
+				ingredientTags
+				.filter(tag => tag.tag_type === "allergen")
+				.map(tag => Number(tag.helper_list_item_id))
+			);
+
+			await storeValue(
+				"IngForm_duplicate_diet_tags",
+				ingredientTags
+				.filter(tag => tag.tag_type === "diet_tag")
+				.map(tag => Number(tag.helper_list_item_id))
+			);
+
 			await removeValue("IngForm_duplicate_row");
 			await removeValue("IngForm_saved_id");
 			await removeValue("IngForm_pending_action");
@@ -86,10 +107,14 @@ export default {
 
 			return true;
 		} catch (error) {
-			jsUserErrors.show(error, "Ingredient could not be opened.");
+			jsUserErrors.show(
+				error,
+				"Ingredient could not be opened."
+			);
 			return false;
 		}
 	},
+
 
 	// ============================================================
 	// MODE AND ROW
@@ -884,7 +909,7 @@ export default {
 		}
 
 		try {
-			const response = await apiIngGetClassifications.run({
+			const response = await apiIngListTags.run({
 				ingredient_id: Number(row.id)
 			});
 
@@ -953,7 +978,7 @@ export default {
 
 		if (appsmith.store.IngForm_mode === "edit") {
 			return (
-				apiIngGetClassifications.data?.classifications || []
+				apiIngListTags.data?.classifications || []
 			)
 				.filter(x => x.classification_type === "allergen")
 				.map(x => String(x.helper_list_item_id));
@@ -973,7 +998,7 @@ export default {
 
 		if (appsmith.store.IngForm_mode === "edit") {
 			return (
-				apiIngGetClassifications.data?.classifications || []
+				apiIngListTags.data?.classifications || []
 			)
 				.filter(x => x.classification_type === "diet_tag")
 				.map(x => String(x.helper_list_item_id));

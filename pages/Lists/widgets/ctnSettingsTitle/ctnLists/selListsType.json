@@ -4,7 +4,7 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 14,
   "boxShadow": "none",
-  "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  \"\" ))(selListsType.options, selListsType.serverSideFiltering) }}",
+  "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"
@@ -14,9 +14,6 @@
     },
     {
       "key": "sourceData"
-    },
-    {
-      "key": "defaultOptionValue"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -67,7 +64,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "serverSideFiltering": false,
-  "sourceData": "{{\n(Array.isArray(apiGetHelperLists.data?.helper_lists)\n ? apiGetHelperLists.data.helper_lists\n : []\n).map(x => ({\n\tlabel: x.list_name,\n\tvalue: String(x.id),\n\tlist_code: x.list_code,\n\tbehavior: x.behavior\n}))\n}}",
+  "sourceData": "{{\n(Array.isArray(apiGetHelperLists.data?.lists)\n ? apiGetHelperLists.data.lists\n : []\n).map(x => ({\n\tlabel: x.list_name,\n\tvalue: String(x.id),\n\tlist_code: x.list_code,\n\tbehavior: x.behavior\n}))\n}}",
   "topRow": 10,
   "type": "SELECT_WIDGET",
   "version": 1,

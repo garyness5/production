@@ -1,6 +1,0 @@
-{{
-{
-	operation: "my_ingredient_classifications",
-	ingredient_id: this.params.ingredient_id
-}
-}}
