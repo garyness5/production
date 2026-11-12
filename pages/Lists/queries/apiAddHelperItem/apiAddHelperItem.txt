@@ -1,5 +1,7 @@
+{{
 {
-	"operation": "add_my_helper_item",
-	"list_id": "{{this.params.list_id || selListsType.selectedOptionValue}}",
-	"name": "{{this.params.name || inpPLAddName.text.trim()}}"
+  operation: "add_helper_item",
+  list_code: jsPicklistRules.listCode(),
+  name: this.params.name
 }
+}}

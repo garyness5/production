@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{\n\t\"operation\": \"add_my_helper_item\",\n\t\"list_id\": \"{{this.params.list_id || selListsType.selectedOptionValue}}\",\n\t\"name\": \"{{this.params.name || inpPLAddName.text.trim()}}\"\n}",
+      "body": "{{\n{\n  operation: \"add_helper_item\",\n  list_code: jsPicklistRules.listCode(),\n  name: this.params.name\n}\n}}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

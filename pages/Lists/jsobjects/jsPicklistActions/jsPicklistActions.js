@@ -13,6 +13,7 @@ export default {
 		return true;
 	},
 
+
 	async saveAdd() {
 		const newName = (inpPLAddName.text || "").trim();
 
@@ -21,8 +22,7 @@ export default {
 		const fromImport =
 					appsmith.store.plAddContext === "ingredientImport";
 
-		const helperLists =
-					apiGetHelperLists.data?.helper_lists || [];
+		const helperLists = apiGetHelperLists.data?.lists || [];
 
 		let listId;
 
@@ -55,12 +55,12 @@ export default {
 				list_id: listId
 			});
 
-			if (existing?.authenticated !== true) {
+			if (existing?.ok !== true) {
 				showAlert("Unable to check existing items.", "error");
 				return false;
 			}
 
-			const duplicate = (existing.helper_items || []).some(
+			const duplicate = (existing.items || []).some(
 				item => this.norm(item.name) === this.norm(newName)
 			);
 
@@ -78,8 +78,8 @@ export default {
 			});
 
 			if (
-				addedItem?.authenticated !== true ||
-				!addedItem.helper_item_id
+				addedItem?.ok !== true ||
+				!addedItem?.item?.id
 			) {
 				throw new Error(JSON.stringify(addedItem || {}));
 			}
@@ -93,14 +93,14 @@ export default {
 
 				await storeValue(
 					"impSelectedSupplierId",
-					String(addedItem.helper_item_id)
+					String(addedItem.item.id)
 				);
 			} else {
 				const refreshed = await apiGetHelperItems.run({
 					list_id: listId
 				});
 
-				if (refreshed?.authenticated !== true) {
+				if (refreshed?.ok !== true) {
 					throw new Error("Helper list refresh failed.");
 				}
 			}
@@ -124,13 +124,13 @@ export default {
 					"warning"
 				);
 			} else {
-				console.error("Add helper item failed:", error);
 				showAlert("Unable to add item.", "error");
 			}
 
 			return false;
 		}
 	},
+
 
 	async openRename() {
 		if (!jsPicklistRules.hasSelection()) {
@@ -147,6 +147,7 @@ export default {
 		return true;
 	},
 
+
 	async saveRename() {
 		const newName = (inpPLRenameName.text || "").trim();
 
@@ -157,7 +158,7 @@ export default {
 		if (!newName || !oldId) return false;
 
 		const exists =
-					(apiGetHelperItems.data?.helper_items || []).some(
+					(apiGetHelperItems.data?.items || []).some(
 						item =>
 						Number(item.id) !== oldId &&
 						this.norm(item.name) === this.norm(newName)
@@ -182,8 +183,8 @@ export default {
 			});
 
 			if (
-				result?.authenticated !== true ||
-				Number(result.helper_item_id) !== oldId
+				result?.ok !== true ||
+				Number(result?.item?.id) !== oldId
 			) {
 				showAlert("Unable to rename item", "error");
 				return false;
@@ -193,7 +194,7 @@ export default {
 				list_id: selListsType.selectedOptionValue
 			});
 
-			if (refreshed?.authenticated !== true) {
+			if (refreshed?.ok !== true) {
 				showAlert(
 					"Item renamed, but the list could not refresh.",
 					"warning"
@@ -206,7 +207,6 @@ export default {
 			return true;
 
 		} catch (error) {
-			console.error("Rename helper item failed:", error);
 			showAlert(
 				"Unable to rename item. Check whether the name already exists.",
 				"error"
@@ -214,6 +214,7 @@ export default {
 			return false;
 		}
 	},
+
 
 	async openReplaceDelete() {
 		if (!jsPicklistRules.hasSelection()) {
@@ -235,7 +236,7 @@ export default {
 			});
 
 			if (
-				result?.authenticated !== true ||
+				result?.ok !== true ||
 				!result?.impact
 			) {
 				showAlert("Unable to check item usage.", "error");
@@ -249,7 +250,6 @@ export default {
 			return true;
 
 		} catch (error) {
-			console.error("Helper impact check failed:", error);
 			showAlert("Unable to check item usage.", "error");
 			return false;
 		}
@@ -317,6 +317,8 @@ export default {
 		});
 	},
 
+
+
 	async confirmReplaceDelete(params) {
 		if (!params?.helper_item_id) {
 			showAlert("Invalid Replace/Delete request.", "error");
@@ -327,18 +329,66 @@ export default {
 			return false;
 		}
 
-		try {
-			const result = await apiReplaceDeleteHelperItem.run({
-				helper_item_id: params.helper_item_id,
-				replace_with_id: params.replace_with_id,
-				delete_original: params.delete_original
-			});
+		const sourceId = Number(params.helper_item_id);
+		const targetId = params.replace_with_id
+		? Number(params.replace_with_id)
+		: null;
 
-			if (
-				result?.authenticated !== true ||
-				!["replace", "replace_delete", "delete"]
-				.includes(result.action)
-			) {
+		try {
+			let result;
+			let message;
+
+			if (params.delete_original === false) {
+				if (!targetId || targetId === sourceId) {
+					showAlert(
+						"Select a different replacement item.",
+						"warning"
+					);
+					return false;
+				}
+
+				result = await apiReplaceHelperItem.run({
+					source_id: sourceId,
+					target_id: targetId
+				});
+
+				message = "Item replaced everywhere used.";
+
+			} else if (params.delete_original === true) {
+				if (targetId) {
+					if (targetId === sourceId) {
+						showAlert(
+							"Select a different replacement item.",
+							"warning"
+						);
+						return false;
+					}
+
+					result = await apiReplaceDeleteHelperItem.run({
+						source_id: sourceId,
+						target_id: targetId
+					});
+
+					message =
+						"Item replaced everywhere used and deleted.";
+
+				} else {
+					result = await apiDeleteHelperItem.run({
+						item_id: sourceId
+					});
+
+					message = "Item deleted.";
+				}
+
+			} else {
+				showAlert(
+					"Invalid Replace/Delete request.",
+					"error"
+				);
+				return false;
+			}
+
+			if (result?.ok !== true) {
 				showAlert(
 					"Unable to complete Replace/Delete.",
 					"error"
@@ -350,7 +400,7 @@ export default {
 				list_id: selListsType.selectedOptionValue
 			});
 
-			if (refreshed?.authenticated !== true) {
+			if (refreshed?.ok !== true) {
 				showAlert(
 					"Action completed, but the list could not refresh.",
 					"warning"
@@ -359,27 +409,19 @@ export default {
 			}
 
 			closeModal(mdlPLReplace.name);
-
-			const message =
-						result.action === "replace"
-			? "Item replaced everywhere used."
-			: result.action === "replace_delete"
-			? "Item replaced everywhere used and deleted."
-			: "Item deleted.";
-
 			showAlert(message, "success");
 			return true;
 
 		} catch (error) {
-			const message = String(error?.message || error || "");
+			const errorMessage =
+						String(error?.message || error || "");
 
-			if (message.includes("409")) {
+			if (errorMessage.includes("409")) {
 				showAlert(
 					"Replacement conflicts with existing records. No changes were made.",
 					"warning"
 				);
 			} else {
-				console.error("Replace/Delete failed:", error);
 				showAlert(
 					"Unable to complete Replace/Delete.",
 					"error"
@@ -388,5 +430,5 @@ export default {
 
 			return false;
 		}
-	}
+	},
 };

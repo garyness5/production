@@ -9,22 +9,13 @@ export default {
 				return false;
 			}
 
-			const listsResponse = await apiGetHelperLists.run();
+			const result = await apiGetHelperLists.run();
 
 			if (
-				listsResponse?.ok !== true ||
-				!Array.isArray(listsResponse.lists)
+				result?.ok !== true ||
+				!Array.isArray(result.lists)
 			) {
 				throw new Error("Helper Lists could not be loaded.");
-			}
-
-			const itemsResponse = await apiGetHelperItems.run();
-
-			if (
-				itemsResponse?.ok !== true ||
-				!Array.isArray(itemsResponse.items)
-			) {
-				throw new Error("Helper items could not be loaded.");
 			}
 
 			await storeValue("listsPageReady", true);
@@ -33,7 +24,10 @@ export default {
 		} catch (error) {
 			await storeValue("listsPageReady", false);
 			console.error("Lists initialization failed:", error);
-			jsUserErrors.show(error, "Unable to load Lists data.");
+			jsUserErrors.show(
+				error,
+				"Unable to load Lists data."
+			);
 			return false;
 		}
 	},

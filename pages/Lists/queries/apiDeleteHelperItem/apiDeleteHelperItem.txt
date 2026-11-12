@@ -1,0 +1,6 @@
+{{
+{
+	operation: "delete_helper_item",
+	item_id: Number(this.params.item_id)
+}
+}}

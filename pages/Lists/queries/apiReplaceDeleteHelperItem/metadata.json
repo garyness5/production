@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{\n\t\"operation\": \"replace_delete_my_helper_item\",\n\t\"helper_item_id\": \"{{this.params.helper_item_id}}\",\n\t\"replace_with_id\": {{this.params.replace_with_id ?? null}},\n\t\"delete_original\": {{this.params.delete_original ?? false}}\n}",
+      "body": "{{\n{\n\toperation: \"replace_delete_helper_item\",\n\tsource_id: Number(this.params.source_id),\n\ttarget_id: Number(this.params.target_id)\n}\n}}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{{\n{\n\toperation: \"get_my_helper_item_impact\",\n\thelper_item_id: this.params.helper_item_id\n}\n}}",
+      "body": "{{\n{\n\toperation: \"helper_item_impact\",\n\titem_id: this.params.helper_item_id\n}\n}}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

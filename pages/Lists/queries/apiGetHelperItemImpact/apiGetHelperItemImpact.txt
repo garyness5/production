@@ -1,6 +1,6 @@
 {{
 {
-	operation: "get_my_helper_item_impact",
-	helper_item_id: this.params.helper_item_id
+	operation: "helper_item_impact",
+	item_id: this.params.helper_item_id
 }
 }}

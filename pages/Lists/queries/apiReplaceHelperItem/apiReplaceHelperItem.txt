@@ -1,0 +1,7 @@
+{{
+{
+	operation: "replace_helper_item",
+	source_id: Number(this.params.source_id),
+	target_id: Number(this.params.target_id)
+}
+}}

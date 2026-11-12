@@ -1,7 +1,7 @@
 export default {
 	listCode() {
 		const listId = String(selListsType.selectedOptionValue || "");
-		const lists = apiGetHelperLists.data?.helper_lists || [];
+		const lists = apiGetHelperLists.data?.lists || [];
 
 		return lists.find(
 			item => String(item.id) === listId
@@ -105,7 +105,7 @@ export default {
 
 	replacementOptions() {
 		const selectedId = String(tblListsItems.selectedRow?.id || "");
-		const items = apiGetHelperItems.data?.helper_items || [];
+		const items = apiGetHelperItems.data?.items || [];
 
 		const options = items
 		.filter(item => String(item.id) !== selectedId)

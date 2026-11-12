@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{{\n{\n\toperation: \"rename_my_helper_item\",\n\thelper_item_id: this.params.helper_item_id,\n\tname: this.params.name\n}\n}}",
+      "body": "{{\n{\n  operation: \"rename_helper_item\",\n  item_id: this.params.helper_item_id,\n  name: this.params.name\n}\n}}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {
