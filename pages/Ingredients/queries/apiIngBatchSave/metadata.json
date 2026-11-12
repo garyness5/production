@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{{\n{\n\toperation: \"batch_update_my_ingredients\",\n\trows: this.params.rows\n}\n}}",
+      "body": "{{ {\n\toperation: \"batch_update_ingredients\",\n\trows: this.params.rows\n} }}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

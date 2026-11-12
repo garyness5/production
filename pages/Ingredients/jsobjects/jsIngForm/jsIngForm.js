@@ -100,8 +100,10 @@ export default {
 			await removeValue("IngForm_duplicate_row");
 			await removeValue("IngForm_saved_id");
 			await removeValue("IngForm_pending_action");
-
+			await removeValue("IngForm_pending_state");
+			await removeValue("IngForm_restoring");
 			await resetWidget("mdlAddIng", true);
+
 			showModal(mdlAddIng.name);
 			await this.captureBaseline();
 
@@ -357,13 +359,14 @@ export default {
 				});
 
 				if (
+					response?.ok !== true ||
 					response?.authenticated !== true ||
-					!response?.impact
+					!Number.isFinite(Number(response.total_count))
 				) {
 					throw new Error("Ingredient impact could not be checked.");
 				}
 
-				const impact = response.impact;
+				const impact = response;
 
 				const recipeCount = Number(impact.recipe_count || 0);
 				const dishCount = Number(impact.dish_count || 0);
@@ -666,7 +669,11 @@ export default {
 				ingredient_id: id
 			});
 
-			if (!response?.authenticated || !response.impact) {
+			if (
+				response?.ok !== true ||
+				response?.authenticated !== true ||
+				!Number.isFinite(Number(response.total_count))
+			) {
 				throw new Error("Ingredient impact could not be loaded.");
 			}
 
@@ -685,28 +692,40 @@ export default {
 	async confirmDelete() {
 		if (!(await jsAuthSession.requireValid())) return false;
 
-		const id = Number(
-			appsmith.store.IngForm_edit_id || 0
-		);
+		const id = Number(appsmith.store.IngForm_edit_id || 0);
 
 		if (!id) {
 			showAlert("No Ingredient selected.", "warning");
 			return false;
 		}
 
+		const savedRow = (
+			apiGetMyIngredients.data?.ingredients || []
+		).find(r => Number(r.id) === id);
+
+		const revision = Number(savedRow?.revision);
+
+		if (!Number.isSafeInteger(revision) || revision < 1) {
+			showAlert(
+				"Ingredient revision is missing. Refresh the list and try again.",
+				"error"
+			);
+			return false;
+		}
+
 		try {
 			const result = await apiIngDelete.run({
-				ingredient_id: id
+				ingredient_id: id,
+				expected_revision: revision
 			});
 
-			const deletedId = Number(result?.ingredient_id || 0);
-
 			if (
-				result?.authenticated !== true ||
-				deletedId !== id
+				result?.ok !== true ||
+				!Number.isSafeInteger(Number(result.revision)) ||
+				Number(result.revision) <= revision
 			) {
 				throw new Error(
-					"Ingredient Delete returned an invalid or unexpected response."
+					"Ingredient Delete returned an invalid response."
 				);
 			}
 
@@ -913,19 +932,23 @@ export default {
 				ingredient_id: Number(row.id)
 			});
 
-			if (!response?.authenticated ||
-					!Array.isArray(response.classifications)) {
+			if (
+				response?.ok !== true ||
+				!Array.isArray(response.tags)
+			) {
 				throw new Error("Ingredient classifications could not be loaded.");
 			}
 
-			const classifications = response.classifications;
+			const classifications = response.tags.filter(
+				x => Number(x.ingredient_id) === Number(row.id)
+			);
 
 			const allergens = classifications
-			.filter(x => x.classification_type === "allergen")
+			.filter(x => x.tag_type === "allergen")
 			.map(x => String(x.helper_list_item_id));
 
 			const dietTags = classifications
-			.filter(x => x.classification_type === "diet_tag")
+			.filter(x => x.tag_type === "diet_tag")
 			.map(x => String(x.helper_list_item_id));
 
 			const source = (
@@ -972,16 +995,13 @@ export default {
 			return appsmith.store.IngForm_pending_state?.allergens || [];
 		}
 
-		if (appsmith.store.IngForm_mode === "duplicate") {
-			return appsmith.store.IngForm_duplicate_allergens || [];
-		}
-
-		if (appsmith.store.IngForm_mode === "edit") {
+		if (
+			appsmith.store.IngForm_mode === "edit" ||
+			appsmith.store.IngForm_mode === "duplicate"
+		) {
 			return (
-				apiIngListTags.data?.classifications || []
-			)
-				.filter(x => x.classification_type === "allergen")
-				.map(x => String(x.helper_list_item_id));
+				appsmith.store.IngForm_duplicate_allergens || []
+			).map(String);
 		}
 
 		return [];
@@ -992,16 +1012,13 @@ export default {
 			return appsmith.store.IngForm_pending_state?.diet_tags || [];
 		}
 
-		if (appsmith.store.IngForm_mode === "duplicate") {
-			return appsmith.store.IngForm_duplicate_diet_tags || [];
-		}
-
-		if (appsmith.store.IngForm_mode === "edit") {
+		if (
+			appsmith.store.IngForm_mode === "edit" ||
+			appsmith.store.IngForm_mode === "duplicate"
+		) {
 			return (
-				apiIngListTags.data?.classifications || []
-			)
-				.filter(x => x.classification_type === "diet_tag")
-				.map(x => String(x.helper_list_item_id));
+				appsmith.store.IngForm_duplicate_diet_tags || []
+			).map(String);
 		}
 
 		return [];

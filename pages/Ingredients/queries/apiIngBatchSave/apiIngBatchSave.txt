@@ -1,6 +1,4 @@
-{{
-{
-	operation: "batch_update_my_ingredients",
+{{ {
+	operation: "batch_update_ingredients",
 	rows: this.params.rows
-}
-}}
+} }}

@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{{\n{\n\toperation: \"delete_my_ingredient\",\n\tingredient_id: this.params.ingredient_id\n}\n}}",
+      "body": "{{ {\n\toperation: \"delete_ingredient\",\n\tingredient_id: this.params.ingredient_id,\n\texpected_revision: this.params.expected_revision\n} }}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

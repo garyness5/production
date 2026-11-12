@@ -1,6 +1,5 @@
-{{
-{
-	operation: "delete_my_ingredient",
-	ingredient_id: this.params.ingredient_id
-}
-}}
+{{ {
+	operation: "delete_ingredient",
+	ingredient_id: this.params.ingredient_id,
+	expected_revision: this.params.expected_revision
+} }}

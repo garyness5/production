@@ -116,12 +116,26 @@ export default {
 
 		const pending = this.pending();
 
-
 		const rows = Object.entries(pending).map(
-			([id, changes]) => ({
-				ingredient_id: Number(id),
-				changes
-			})
+			([id, changes]) => {
+				const saved = this.savedRow(id);
+
+				if (
+					!saved ||
+					!Number.isSafeInteger(Number(saved.revision)) ||
+					Number(saved.revision) < 1
+				) {
+					throw new Error(
+						"Ingredient revision is missing. Reload the Ingredient list."
+					);
+				}
+
+				return {
+					ingredient_id: Number(id),
+					expected_revision: Number(saved.revision),
+					changes
+				};
+			}
 		);
 
 		if (!rows.length) return true;
