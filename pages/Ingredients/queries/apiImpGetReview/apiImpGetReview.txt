@@ -1,0 +1,9 @@
+{{ {
+  operation: "my_import_review",
+  body: {
+    supplier_id:
+      appsmith.store.impSelectedSupplierId === "__NO_SUPPLIER__"
+        ? "__NO_SUPPLIER__"
+        : Number(appsmith.store.impSelectedSupplierId)
+  }
+} }}

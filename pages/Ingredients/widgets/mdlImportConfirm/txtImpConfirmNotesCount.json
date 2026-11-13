@@ -1,0 +1,55 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 48,
+  "dynamicBindingPathList": [
+    {
+      "key": "truncateButtonColor"
+    },
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "0.875rem",
+  "fontStyle": "",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "h29kmo3jn9",
+  "leftColumn": 3,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 42,
+  "mobileLeftColumn": 4,
+  "mobileRightColumn": 20,
+  "mobileTopRow": 38,
+  "needsErrorInfo": false,
+  "originalBottomRow": 48,
+  "originalTopRow": 38,
+  "overflow": "NONE",
+  "parentColumnSpace": 6.9375,
+  "parentId": "khxxuutwn7",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 9,
+  "shouldTruncate": false,
+  "text": "{{ appsmith.store.impImpact?.duplicateNames || 0 }}\n{{ appsmith.store.impImpact?.missingIngredientCategory || 0 }}\n{{ appsmith.store.impImpact?.unmappedUnits || 0 }}\n{{ appsmith.store.impImpact?.missingIngredientName || 0 }}\n{{ appsmith.store.impImpact?.unitTypeConflicts || 0 }}",
+  "textAlign": "RIGHT",
+  "textColor": "#231F20",
+  "topRow": 38,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "12tc3gohsy",
+  "widgetName": "txtImpConfirmNotesCount"
+}

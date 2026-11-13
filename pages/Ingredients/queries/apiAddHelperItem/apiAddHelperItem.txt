@@ -1,0 +1,5 @@
+{{ {
+	operation: "add_helper_item",
+	list_code: "supplier",
+	name: this.params.name
+} }}

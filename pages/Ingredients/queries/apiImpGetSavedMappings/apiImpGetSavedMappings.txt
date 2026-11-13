@@ -1,0 +1,10 @@
+{{ {
+	operation: "my_import_saved_mappings",
+	body: {
+		supplier_id:
+		appsmith.store.impSelectedSupplierId === "__NO_SUPPLIER__"
+		? "__NO_SUPPLIER__"
+		: Number(appsmith.store.impSelectedSupplierId),
+		header_signature: appsmith.store.impHeaderSignature || ""
+	}
+} }}
