@@ -5,7 +5,7 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
   "bottomRow": 80,
-  "bottomRowBeforeCollapse": 39,
+  "bottomRowBeforeCollapse": 80,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -82,7 +82,7 @@
     "qty": 77,
     "unit_abbreviation": 60,
     "unit_id": 86,
-    "wastage_percent": 96
+    "wastage_percent": 97
   },
   "compactMode": "SHORT",
   "customIsLoading": false,
@@ -1394,7 +1394,7 @@
   "tableData": "{{ jsRecCompTable.getRows() }}",
   "textSize": "0.875rem",
   "topRow": 41,
-  "topRowBeforeCollapse": 0,
+  "topRowBeforeCollapse": 41,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

@@ -39,15 +39,14 @@ export default {
 		return true;
 	},
 
+
 	async load() {
 		await storeValue("recPageReady", false);
+		let stage = "session";
 
 		try {
 			const ok = await jsAppInit.init();
-
-			if (!ok) {
-				return false;
-			}
+			if (!ok) return false;
 
 			const mode = String(
 				appsmith.store.Recipe_open_mode ||
@@ -59,150 +58,188 @@ export default {
 				appsmith.store.current_recipe_id || 0
 			);
 
-			const needsDetail =
-						mode !== "add" && recipeId > 0;
+			const validId =
+						Number.isSafeInteger(recipeId) && recipeId > 0;
 
-			let detail = null;
-
-			try {
-				const [helpersLoaded, components, recipeDetail] =
-							await Promise.all([
-								this.loadSecureHelpers(),
-								apiRecGetComponentItems.run(),
-								needsDetail
-								? apiRecGetDetail.run()
-								: Promise.resolve(null)
-							]);
-
-				if (
-					helpersLoaded !== true ||
-					components?.authenticated !== true ||
-					!Array.isArray(components.component_items)
-				) {
-					throw new Error("Invalid Recipe reference data");
-				}
-
-				detail = recipeDetail;
-
-			} catch (error) {
-				console.error(
-					"Recipe reference data loading failed:",
-					error
+			if (!["add", "edit", "duplicate"].includes(mode)) {
+				throw new Error(
+					"Unsupported Recipe opening mode: " + mode
 				);
-
-				showAlert(
-					"Unable to load Recipe reference data.",
-					"error"
-				);
-
-				return false;
 			}
 
-			// A page initialization starts from saved truth.
-			// Ordinary token renewal does not invoke this loader.
-			await jsRecWorkspace.clear();
+			if (mode !== "add" && !validId) {
+				throw new Error(
+					"RecipeList did not provide a valid Recipe ID for " +
+					mode +
+					". Return to RecipeList and select the Recipe again."
+				);
+			}
 
-			if (mode === "add" || !recipeId) {
-				await jsRecWorkspace.initializeNew();
-				await jsRecCompTable.clearRows();
+			stage = "Recipe reference data";
 
-				await removeValue("Recipe_open_mode");
+			const [helpersLoaded, components, detail] =
+						await Promise.all([
+							this.loadSecureHelpers(),
+							apiRecGetComponentItems.run(),
+							mode !== "add"
+							? apiRecGetDetail.run()
+							: Promise.resolve(null)
+						]);
 
-				await storeValue("recPageReady", true);
-
-				await resetWidget("inpRecName", true);
-				await resetWidget("selRecCategory", true);
-				await resetWidget("chkRecActive", true);
-				await resetWidget("inpRecYieldQty", true);
-				await resetWidget("selRecYieldUnit", true);
-				await resetWidget("inpRecExtraPercent", true);
-				await resetWidget("msRecDietTags", true);
-				await resetWidget("rteRecNotes", true);
-
-				return true;
+			if (helpersLoaded !== true) {
+				throw new Error(
+					"Recipe lookups were not confirmed."
+				);
 			}
 
 			if (
-				detail?.authenticated !== true ||
-				!detail?.recipe ||
-				Number(detail.recipe.id) !== recipeId
+				components?.authenticated !== true ||
+				!Array.isArray(components.component_items)
 			) {
-				showAlert(
-					"Recipe could not be loaded.",
-					"error"
+				throw new Error(
+					"Recipe component items response was invalid."
 				);
-
-				return false;
 			}
 
-			await jsRecWorkspace.initializeFromSaved();
-			await jsRecCompTable.loadFromQuery();
+			if (
+				mode !== "add" &&
+				(
+					detail?.authenticated !== true ||
+					!detail?.recipe ||
+					Number(detail.recipe.id) !== recipeId
+				)
+			) {
+				throw new Error(
+					"Recipe detail response did not match selected Recipe ID " +
+					recipeId +
+					"."
+				);
+			}
+			
+			stage = "workspace initialization";
 
-			// Preserve the existing RecipeList Duplicate workflow.
-			if (mode === "duplicate") {
+			await jsRecWorkspace.clear();
+
+			if (mode === "add") {
+				await jsRecWorkspace.initializeNew();
+				await jsRecCompTable.clearRows();
 				await removeValue("Recipe_open_mode");
-
-				await resetWidget("inpRecName", true);
-				await resetWidget("selRecCategory", true);
-				await resetWidget("chkRecActive", true);
-				await resetWidget("inpRecYieldQty", true);
-				await resetWidget("selRecYieldUnit", true);
-				await resetWidget("inpRecExtraPercent", true);
-				await resetWidget("msRecDietTags", true);
-				await resetWidget("rteRecNotes", true);
-
-				const duplicated =
-							await jsRecSave.duplicateRecipe();
-
-				if (duplicated !== true) {
-					return false;
-				}
-
 				await storeValue("recPageReady", true);
 
-				return true;
+			} else {
+				await jsRecWorkspace.initializeFromSaved();
+				await jsRecCompTable.loadFromQuery();
+
+				if (mode === "duplicate") {
+					await removeValue("Recipe_open_mode");
+
+					stage = "duplicate workspace";
+
+					// RecipeList Duplicate starts from the saved Recipe,
+					// not from widgets that may not have initialized yet.
+					const source = jsRecWorkspace.savedTruth();
+
+					const sourceName = String(
+						source.header.name || ""
+					).trim();
+
+					if (!sourceName) {
+						throw new Error(
+							"The selected Recipe has no saved Name."
+						);
+					}
+
+					const duplicateName =
+								await jsRecSave.nextDuplicateName(sourceName);
+
+					const duplicate = {
+						header: {
+							...source.header,
+							name: duplicateName
+						},
+
+						diet_tags: [
+							...(source.diet_tags || [])
+						],
+
+						components: (source.components || []).map(row => ({
+							...row,
+							id: null,
+							recipe_id: 0,
+							draft_row_id: jsRecCompTable.makeDraftId()
+						}))
+					};
+
+					await jsRecSave.initializeCreateRequest();
+
+					await storeValue("current_recipe_id", 0);
+					await storeValue("Recipe_mode", "duplicate");
+
+					await jsRecWorkspace.initializeDuplicate(duplicate);
+
+					await jsRecCompTable.setRows(
+						duplicate.components
+					);
+
+					await storeValue("recPageReady", true);
+
+				} else {
+					await removeValue("Recipe_open_mode");
+					await storeValue("Recipe_mode", "edit");
+
+					await storeValue(
+						"recipe_workspace_user_id",
+						String(appsmith.store.workspace_owner_user_id)
+					);
+
+					await storeValue(
+						"recipe_workspace_recipe_id",
+						recipeId
+					);
+
+					await storeValue("recPageReady", true);
+				}
 			}
 
-			await removeValue("Recipe_open_mode");
-			await storeValue("Recipe_mode", "edit");
+			stage = "widget reset";
 
-			await storeValue(
-				"recipe_workspace_user_id",
-				String(appsmith.store.workspace_owner_user_id)
-			);
-
-			await storeValue(
-				"recipe_workspace_recipe_id",
-				recipeId
-			);
-
-			await storeValue("recPageReady", true);
-
-			// Restore visible header controls from the newly loaded
-			// saved workspace, not from a previous unsaved workspace.
-			await resetWidget("inpRecName", true);
-			await resetWidget("selRecCategory", true);
-			await resetWidget("chkRecActive", true);
-			await resetWidget("inpRecYieldQty", true);
-			await resetWidget("selRecYieldUnit", true);
-			await resetWidget("inpRecExtraPercent", true);
-			await resetWidget("msRecDietTags", true);
-			await resetWidget("rteRecNotes", true);
+			for (const name of [
+				"inpRecName",
+				"selRecCategory",
+				"chkRecActive",
+				"inpRecYieldQty",
+				"selRecYieldUnit",
+				"inpRecExtraPercent",
+				"msRecDietTags",
+				"rteRecNotes"
+			]) {
+				await resetWidget(name, true);
+			}
 
 			return true;
 
 		} catch (error) {
+			await storeValue("recPageReady", false);
+
+			const message = String(
+				error?.message || error || "Unknown error"
+			);
+
 			console.error(
-				"Recipe initialization failed:",
+				"Recipe initialization failed at " + stage + ":",
 				error
 			);
 
 			showAlert(
-				"Unable to initialize Recipe.",
+				"Recipe load failed at " +
+				stage +
+				": " +
+				message,
 				"error"
 			);
 
 			return false;
 		}
 	}
+
 };

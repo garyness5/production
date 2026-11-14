@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{{ {\n\toperation: \"save_my_ingredient\",\n\tingredient_id: this.params.ingredient_id,\n\tpayload: this.params.payload\n} }}",
+      "body": "{{\n{\n\toperation: \"save_ingredient\",\n\n\tingredient_id: this.params.ingredient_id ?? null,\n\n\texpected_revision:\n\tthis.params.ingredient_id == null\n\t? null\n\t: this.params.expected_revision ?? null,\n\n\tdata: {\n\t\t...this.params.payload,\n\t\tallergen_ids: undefined,\n\t\tdiet_tag_ids: undefined\n\t},\n\n\tallergen_ids: this.params.payload?.allergen_ids ?? [],\n\tdiet_tag_ids: this.params.payload?.diet_tag_ids ?? []\n}\n}}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

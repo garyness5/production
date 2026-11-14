@@ -91,10 +91,7 @@ export default {
 
 			const savedId = Number(result?.ingredient_id || 0);
 
-			if (
-				result?.authenticated !== true ||
-				!savedId
-			) {
+			if (result?.ok !== true || !savedId) {
 				throw new Error(
 					"Ingredient Save returned an invalid response."
 				);

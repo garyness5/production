@@ -1,5 +1,21 @@
-{{ {
-	operation: "save_my_ingredient",
-	ingredient_id: this.params.ingredient_id,
-	payload: this.params.payload
-} }}
+{{
+{
+	operation: "save_ingredient",
+
+	ingredient_id: this.params.ingredient_id ?? null,
+
+	expected_revision:
+	this.params.ingredient_id == null
+	? null
+	: this.params.expected_revision ?? null,
+
+	data: {
+		...this.params.payload,
+		allergen_ids: undefined,
+		diet_tag_ids: undefined
+	},
+
+	allergen_ids: this.params.payload?.allergen_ids ?? [],
+	diet_tag_ids: this.params.payload?.diet_tag_ids ?? []
+}
+}}

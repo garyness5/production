@@ -2,6 +2,7 @@
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 106,
+  "bottomRowBeforeCollapse": 106,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "defaultText": "{{ jsRecWorkspace.get().header.notes || \"\" }}",
   "dynamicBindingPathList": [
@@ -58,6 +59,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "topRow": 80,
+  "topRowBeforeCollapse": 80,
   "type": "RICH_TEXT_EDITOR_WIDGET",
   "version": 1,
   "widgetId": "dif8kojipq",

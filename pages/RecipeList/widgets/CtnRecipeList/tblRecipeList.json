@@ -38,26 +38,26 @@
     "yield_qty",
     "yield_unit",
     "extra_percent",
-    "cost_per_unit",
     "total_cost",
-    "diet_tag_names",
+    "cost_per_unit",
     "active",
     "id",
+    "diet_tag_names",
     "derived_allergens",
-    "category_name",
     "cost_per_base_unit",
     "derived_diet_tags",
-    "client_id",
-    "name_norm",
     "yield_unit_id",
-    "yield_unit_type",
     "notes",
     "created_at",
     "updated_at",
-    "deleted",
-    "revision"
+    "revision",
+    "client_id",
+    "name_norm",
+    "category_name",
+    "yield_unit_type",
+    "deleted"
   ],
-  "columnUpdatedAt": 1794064427368,
+  "columnUpdatedAt": 1794621878236,
   "columnWidthMap": {
     "active": 88,
     "category_id": 118,
@@ -65,7 +65,7 @@
     "cost_per_unit": 107,
     "customColumn1": 85,
     "diet_tag_names": 106,
-    "extra_percent": 92,
+    "extra_percent": 94,
     "id": 78,
     "name": 235,
     "name_norm": 142,
@@ -101,31 +101,16 @@
       "key": "primaryColumns.id.computedValue"
     },
     {
-      "key": "primaryColumns.client_id.computedValue"
-    },
-    {
       "key": "primaryColumns.name.computedValue"
     },
     {
-      "key": "primaryColumns.name_norm.computedValue"
-    },
-    {
       "key": "primaryColumns.category_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.category_name.computedValue"
     },
     {
       "key": "primaryColumns.yield_qty.computedValue"
     },
     {
       "key": "primaryColumns.yield_unit_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.yield_unit.computedValue"
-    },
-    {
-      "key": "primaryColumns.yield_unit_type.computedValue"
     },
     {
       "key": "primaryColumns.extra_percent.computedValue"
@@ -141,6 +126,36 @@
     },
     {
       "key": "primaryColumns.updated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.category_id.selectOptions"
+    },
+    {
+      "key": "defaultSelectedRowIndex"
+    },
+    {
+      "key": "primaryColumns.revision.computedValue"
+    },
+    {
+      "key": "customIsLoadingValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "primaryColumns.client_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.name_norm.computedValue"
+    },
+    {
+      "key": "primaryColumns.category_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.yield_unit.computedValue"
+    },
+    {
+      "key": "primaryColumns.yield_unit_type.computedValue"
     },
     {
       "key": "primaryColumns.diet_tag_names.computedValue"
@@ -162,21 +177,6 @@
     },
     {
       "key": "primaryColumns.derived_diet_tags.computedValue"
-    },
-    {
-      "key": "primaryColumns.category_id.selectOptions"
-    },
-    {
-      "key": "defaultSelectedRowIndex"
-    },
-    {
-      "key": "primaryColumns.revision.computedValue"
-    },
-    {
-      "key": "customIsLoadingValue"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -228,8 +228,8 @@
   "needsErrorInfo": false,
   "oddRowColor": "#f8fafc",
   "onRowSelected": "{{ storeValue(\"RecList_selected_id\", tblRecipeList.selectedRow?.id ?? null) }}",
-  "originalBottomRow": 70,
-  "originalTopRow": 18,
+  "originalBottomRow": 66,
+  "originalTopRow": 14,
   "parentColumnSpace": 19.8125,
   "parentId": "rwwiyi7b1f",
   "parentRowSpace": 10,
@@ -302,13 +302,16 @@
     "category_name": {
       "alias": "category_name",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
-      "columnType": "select",
-      "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( currentRow.category_id == null ? \"\" : String(currentRow.category_id) )) :  currentRow.category_id == null ? \"\" : String(currentRow.category_id)  })()}}",
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"category_name\"])) : category_name })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
+      "fontStyle": "",
       "horizontalAlignment": "LEFT",
       "id": "category_name",
       "index": 5,
@@ -320,12 +323,11 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
-      "label": "Category_name",
+      "label": "category_name",
       "notation": "standard",
-      "onOptionChange": "",
       "originalId": "category_name",
-      "selectOptions": "",
       "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
@@ -335,28 +337,32 @@
     "client_id": {
       "alias": "client_id",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
       "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"client_id\"])) : client_id })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
+      "fontStyle": "",
       "horizontalAlignment": "LEFT",
       "id": "client_id",
       "index": 1,
-      "isCellEditable": true,
+      "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
       "isDisabled": false,
       "isDiscardVisible": true,
-      "isEditable": true,
+      "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
       "label": "client_id",
       "notation": "standard",
       "originalId": "client_id",
       "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
@@ -366,9 +372,10 @@
     "cost_per_base_unit": {
       "alias": "cost_per_base_unit",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
-      "columnType": "number",
+      "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"cost_per_base_unit\"])) : cost_per_base_unit })()}}",
       "currencyCode": "USD",
       "decimals": 0,
@@ -378,12 +385,12 @@
       "horizontalAlignment": "LEFT",
       "id": "cost_per_base_unit",
       "index": 19,
-      "isCellEditable": true,
+      "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
       "isDisabled": false,
       "isDiscardVisible": true,
-      "isEditable": true,
+      "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
       "label": "cost_per_base_unit",
@@ -400,9 +407,10 @@
     "cost_per_unit": {
       "alias": "cost_per_unit",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
-      "columnType": "number",
+      "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( jsFmt.currency(currentRow.cost_per_unit) )) :  jsFmt.currency(currentRow.cost_per_unit)  })()}}",
       "currencyCode": "USD",
       "decimals": 0,
@@ -420,7 +428,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Cost/Unit",
+      "label": "$/Unit",
       "notation": "standard",
       "originalId": "cost_per_unit",
       "sticky": "",
@@ -465,6 +473,7 @@
     "deleted": {
       "alias": "deleted",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "checkbox",
@@ -477,12 +486,12 @@
       "horizontalAlignment": "LEFT",
       "id": "deleted",
       "index": 16,
-      "isCellEditable": true,
+      "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
       "isDisabled": false,
       "isDiscardVisible": true,
-      "isEditable": true,
+      "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
       "label": "deleted",
@@ -499,6 +508,7 @@
     "derived_allergens": {
       "alias": "derived_allergens",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
@@ -518,7 +528,7 @@
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": false,
+      "isVisible": true,
       "label": "Allergens",
       "notation": "standard",
       "originalId": "derived_allergens",
@@ -533,6 +543,7 @@
     "derived_diet_tags": {
       "alias": "derived_diet_tags",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
@@ -545,12 +556,12 @@
       "horizontalAlignment": "LEFT",
       "id": "derived_diet_tags",
       "index": 21,
-      "isCellEditable": true,
+      "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
       "isDisabled": false,
       "isDiscardVisible": true,
-      "isEditable": true,
+      "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
       "label": "derived_diet_tags",
@@ -567,6 +578,7 @@
     "diet_tag_names": {
       "alias": "diet_tag_names",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
@@ -602,8 +614,8 @@
       "alias": "extra_percent",
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
-      "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"extra_percent\"])) : extra_percent })()}}",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (\n  currentRow.extra_percent == null ||\n  Number(currentRow.extra_percent) === 0\n    ? \"\"\n    : jsFmt.number(currentRow.extra_percent)\n)) : \n  currentRow.extra_percent == null ||\n  Number(currentRow.extra_percent) === 0\n    ? \"\"\n    : jsFmt.number(currentRow.extra_percent)\n })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -695,28 +707,32 @@
     "name_norm": {
       "alias": "name_norm",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
       "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"name_norm\"])) : name_norm })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
+      "fontStyle": "",
       "horizontalAlignment": "LEFT",
       "id": "name_norm",
       "index": 3,
-      "isCellEditable": true,
+      "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
       "isDisabled": false,
       "isDiscardVisible": true,
-      "isEditable": true,
+      "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
       "label": "name_norm",
       "notation": "standard",
       "originalId": "name_norm",
       "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
@@ -777,7 +793,7 @@
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": false,
       "label": "revision",
       "notation": "standard",
       "originalId": "revision",
@@ -792,9 +808,10 @@
     "total_cost": {
       "alias": "total_cost",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
-      "columnType": "number",
+      "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( jsFmt.currency(currentRow.total_cost) )) :  jsFmt.currency(currentRow.total_cost)  })()}}",
       "currencyCode": "USD",
       "decimals": 0,
@@ -812,7 +829,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Total Cost",
+      "label": "Total",
       "notation": "standard",
       "originalId": "total_cost",
       "sticky": "",
@@ -888,13 +905,16 @@
     "yield_unit": {
       "alias": "yield_unit",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
       "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"yield_unit\"])) : yield_unit })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
+      "fontStyle": "",
       "horizontalAlignment": "LEFT",
       "id": "yield_unit",
       "index": 8,
@@ -910,6 +930,7 @@
       "notation": "standard",
       "originalId": "yield_unit",
       "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
@@ -950,28 +971,32 @@
     "yield_unit_type": {
       "alias": "yield_unit_type",
       "allowCellWrapping": false,
+      "allowHeaderWrapping": false,
       "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
       "columnType": "text",
       "computedValue": "{{(() => { const tableData = tblRecipeList.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"yield_unit_type\"])) : yield_unit_type })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
+      "fontStyle": "",
       "horizontalAlignment": "LEFT",
       "id": "yield_unit_type",
       "index": 9,
-      "isCellEditable": true,
+      "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
       "isDisabled": false,
       "isDiscardVisible": true,
-      "isEditable": true,
+      "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
       "label": "yield_unit_type",
       "notation": "standard",
       "originalId": "yield_unit_type",
       "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
